@@ -2,7 +2,7 @@
    Gallery + BibTeX copy functionality
    ============================================================ */
 (function () {
-    /* ---- Gallery data (16 placeholder results) ---- */
+    /* ---- Gallery data ---- */
     const results = [
         {prompt: 'A coral under the water. The surface shows a close-up detailed texture of coral.'},
         {prompt: 'A football with highly detailed surface textures.'},
@@ -25,15 +25,13 @@
     const track = document.getElementById('gallery-track');
     const counter = document.getElementById('gallery-current');
     const total = document.getElementById('gallery-total');
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
 
-    total.textContent = results.length;
+    total.textContent = results.length.toString();
 
     /* Build slides */
     results.forEach(function (r, i) {
         const slide = document.createElement('div');
-        slide.className = 'gallery-slide';
+        slide.className = 'swiper-slide gallery-slide';
         slide.innerHTML =
             '<div class="gallery-pane">' +
             '<span class="gallery-pane-label">3D Mesh</span>' +
@@ -61,42 +59,29 @@
         track.appendChild(slide);
     });
 
-    /* Navigation */
-    let idx = 0;
-
-    function go(n) {
-        idx = Math.max(0, Math.min(results.length - 1, n));
-        track.style.transform = 'translateX(calc(-' + idx + ' * (100% + 1.5rem)))';
-        counter.textContent = idx + 1;
-        prevBtn.disabled = idx === 0;
-        nextBtn.disabled = idx === results.length - 1;
+    function updateCounter(swiper) {
+        counter.textContent = swiper.activeIndex + 1;
     }
 
-    prevBtn.addEventListener('click', function () {
-        go(idx - 1);
+    new Swiper('#gallery-wrapper', {
+        a11y: true,
+        slidesPerView: 1,
+        spaceBetween: 24,
+        grabCursor: true,
+        keyboard: {enabled: true},
+        navigation: {
+            nextEl: '#gallery-next',
+            prevEl: '#gallery-prev',
+        },
+        pagination: {
+            el: '#gallery-pagination',
+            clickable: true,
+        },
+        on: {
+            init: updateCounter,
+            slideChange: updateCounter,
+        },
     });
-    nextBtn.addEventListener('click', function () {
-        go(idx + 1);
-    });
-
-    /* Keyboard navigation */
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') go(idx - 1);
-        if (e.key === 'ArrowRight') go(idx + 1);
-    });
-
-    /* Touch swipe */
-    let startX = 0;
-    const wrapper = document.getElementById('gallery-wrapper');
-    wrapper.addEventListener('touchstart', function (e) {
-        startX = e.touches[0].clientX;
-    }, {passive: true});
-    wrapper.addEventListener('touchend', function (e) {
-        const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) {
-            go(idx + (dx < 0 ? 1 : -1));
-        }
-    }, {passive: true});
 })();
 
 /* ---- BibTeX copy ---- */
