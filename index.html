@@ -42,7 +42,7 @@
             Text-based Tactile Graphics Generation for the Visually Impaired
         </h1>
         <p class="subtitle fs-4 text-muted mt-2 mb-4">Anonymous submission</p>
-        <div class="d-flex gap-3 justify-content-center">
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
             <a href="#" class="btn btn-tactile"><i class="bi bi-file-earmark-pdf-fill me-1"></i> Paper</a>
             <a href="https://github.com/AvaLovelace1/TactileGen" class="btn btn-tactile-outline"
                target="_blank" rel="external noopener noreferrer">
@@ -85,10 +85,12 @@
 <!-- ============================================================
      RESULTS GALLERY
      ============================================================ -->
-<section id="gallery" class="gallery-section bg-body-variant">
+<section id="gallery" class="gallery-section bg-body-variant shadow-lg">
     <div class="container max-w-image">
         <h2 class="section-title">Gallery</h2>
-        <p>Our method produces fabrication-ready 2.5D tactile graphics from text prompts.</p>
+        <p>
+            Our method produces fabrication-ready 2.5D tactile graphics from text prompts.
+        </p>
         <template id="gallery-slide-template">
             <div class="swiper-slide bg-white rounded border border-muted">
                 <div class="row p-4 g-4">
@@ -106,7 +108,7 @@
                         </model-viewer>
                     </div>
                     <div class="col-12 col-md-6 text-center">
-                        <p class="gallery-pane-label mb-1">Physical 3D print</p>
+                        <p class="gallery-pane-label mb-1">3D-printed result</p>
                         <div class="text-muted bg-body-variant">
                             <span><i class="bi bi-camera me-2"></i><span data-field="photo-label"></span></span>
                         </div>
@@ -120,20 +122,20 @@
 
         <div class="swiper" id="gallery-wrapper">
             <div class="swiper-wrapper" id="gallery-track"></div>
-            <div class="d-flex justify-content-between mt-3">
-                <div class="text-muted font-sans-serif fw-semibold fs-5" style="width:96px">
-                    <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
-                </div>
-                <div class="swiper-pagination position-relative align-content-center" id="gallery-pagination"></div>
-                <div class="d-flex gap-2 justify-content-end" style="width:96px">
-                    <button id="gallery-prev" class="btn btn-tactile-outline btn-circle fs-6"
-                            aria-label="Previous" disabled>
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <button id="gallery-next" class="btn btn-tactile-outline btn-circle fs-6" aria-label="Next">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                </div>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+            <div class="text-muted font-sans-serif fw-semibold fs-5" style="width:96px">
+                <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
+            </div>
+            <div class="swiper-pagination position-relative align-content-center" id="gallery-pagination"></div>
+            <div class="d-flex gap-2 justify-content-end" style="width:96px">
+                <button id="gallery-prev" class="btn btn-tactile-outline btn-circle fs-6"
+                        aria-label="Previous" disabled>
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button id="gallery-next" class="btn btn-tactile-outline btn-circle fs-6" aria-label="Next">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -144,62 +146,64 @@
      ============================================================ -->
 <section id="method">
     <div class="container max-w-image">
-        <h2 class="section-title">Method Overview</h2>
+        <h2 class="section-title">Method</h2>
 
-        <figure class="method-figure mb-4">
-            <div class="placeholder-img">
-                <span><i class="bi bi-image me-2"></i>Method overview diagram &mdash; Fig.&thinsp;2 from paper</span>
+        <p>
+            Out method generates tactile graphics via a multistep pipeline:
+        </p>
+
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+            <div class="col">
+                <div class="pipeline-step">
+                    <div class="step-num mb-2">1</div>
+                    <p class="step-heading mb-2">Base Geometry Generation</p>
+                    <p class="small text-muted">
+                        We first synthesize a base image constrained by a plate template, and lift the image to
+                        2.5D base relief via monocular geometry estimation.
+                    </p>
+                </div>
             </div>
-            <figcaption>
-                <strong>Fig.&thinsp;2:</strong> Given a text prompt, we generate 3D-printable 2.5D tactile graphics
-                that jointly encode geometry, surface texture, and braille. We first synthesize a base
-                image constrained by a plate template and lift it to 3D base relief via monocular
-                geometry estimation. In parallel, a tactile texture module produces high-resolution,
-                tileable normal maps which are integrated as geometric deformation on the base relief,
-                followed by fabrication-aware base flattening and braille generation.
-            </figcaption>
+            <div class="col">
+                <div class="pipeline-step">
+                    <div class="step-num mb-2">2</div>
+                    <p class="step-heading mb-2">Tactile Texture Generation</p>
+                    <p class="small text-muted">
+                        A tactile texture module produces tileable normal maps from text prompts or tactile
+                        sensor captures, which can be assigned to object parts through text or user interaction.
+                    </p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="pipeline-step">
+                    <div class="step-num mb-2">3</div>
+                    <p class="step-heading mb-2">Integration &amp; Polishing</p>
+                    <p class="small text-muted">
+                        The textures are integrated as geometric deformation on the base relief, followed by
+                        fabrication-aware base flattening and braille generation.
+                    </p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="pipeline-step">
+                    <div class="step-num mb-2">4</div>
+                    <p class="step-heading mb-2">Physical Fabrication</p>
+                    <p class="small text-muted">
+                        The resulting watertight mesh is fabricated via SLA resin 3D printing.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <figure class="figure w-100 rounded overflow-hidden shadow-lg mt-5">
+            <div class="placeholder-img"></div>
         </figure>
-
-        <div class="method-description">
-            <p>
-                Our pipeline takes a natural language prompt describing an object and its surface textures,
-                and produces a fabrication-ready 2.5D tactile relief through three complementary components:
-                <strong>global geometry</strong> capturing object shape, <strong>tactile surface textures</strong>
-                encoding fine-grained material cues, and <strong>braille annotations</strong> providing
-                semantic grounding.
-            </p>
-        </div>
-
-        <div class="pipeline-steps">
-            <div class="pipeline-step">
-                <div class="step-num">1</div>
-                <h6>Base Geometry</h6>
-                <p>Template-guided relief generation using in-context image editing and monocular depth estimation.</p>
-            </div>
-            <div class="pipeline-step">
-                <div class="step-num">2</div>
-                <h6>Tactile Texture</h6>
-                <p>Fine-tuned diffusion model generates high-resolution, tileable normal maps from text or sensor
-                    input.</p>
-            </div>
-            <div class="pipeline-step">
-                <div class="step-num">3</div>
-                <h6>Tileable Patching</h6>
-                <p>Intra-tile rearrangement with diffusion-based inpainting for seamless boundary synthesis.</p>
-            </div>
-            <div class="pipeline-step">
-                <div class="step-num">4</div>
-                <h6>Fabrication &amp; Braille</h6>
-                <p>Flat-base enforcement, braille dot placement, and watertight mesh export for SLA 3D printing.</p>
-            </div>
-        </div>
     </div>
 </section>
 
 <!-- ============================================================
      BIBTEX
      ============================================================ -->
-<section id="citation">
+<section id="citation" class="bg-body-variant">
     <div class="container max-w-reading">
         <h2 class="section-title">Citation</h2>
         <div class="position-relative invert-colors rounded font-monospace small p-3">
