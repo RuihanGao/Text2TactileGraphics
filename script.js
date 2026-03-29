@@ -28,34 +28,18 @@
 
     total.textContent = results.length.toString();
 
-    /* Build slides */
+    /* Build slides from <template> */
+    const slideTemplate = document.getElementById('gallery-slide-template');
+
     results.forEach(function (r, i) {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide gallery-slide';
-        slide.innerHTML =
-            '<div class="gallery-pane">' +
-            '<span class="gallery-pane-label">3D Mesh</span>' +
-            '<model-viewer ' +
-            'alt="3D tactile mesh for: ' + r.prompt + '" ' +
-            'shadow-intensity="0.6" ' +
-            'camera-controls ' +
-            'touch-action="pan-y" ' +
-            'auto-rotate ' +
-            'style="width:100%;height:280px;border-radius:.5rem;background:var(--stone-100);">' +
-            '<div slot="poster" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--stone-400);font-family:Inter,sans-serif;font-size:.85rem;">' +
-            '<i class="bi bi-box me-2"></i>Mesh placeholder #' + (i + 1) +
-            '</div>' +
-            '</model-viewer>' +
-            '</div>' +
-            '<div class="gallery-pane">' +
-            '<span class="gallery-pane-label">3D Print Photo</span>' +
-            '<div class="photo-placeholder">' +
-            '<span><i class="bi bi-camera me-2"></i>Photo placeholder #' + (i + 1) + '</span>' +
-            '</div>' +
-            '</div>' +
-            '<div class="gallery-caption">' +
-            '<span class="prompt">' + r.prompt + '</span>' +
-            '</div>';
+        const slide = slideTemplate.content.firstElementChild.cloneNode(true);
+        const num = i + 1;
+
+        slide.querySelector('model-viewer').alt = '3D tactile mesh for: ' + r.prompt;
+        slide.querySelector('[data-field="mesh-label"]').textContent = 'Mesh placeholder #' + num;
+        slide.querySelector('[data-field="photo-label"]').textContent = 'Photo placeholder #' + num;
+        slide.querySelector('[data-field="prompt"]').textContent = r.prompt;
+
         track.appendChild(slide);
     });
 
@@ -63,6 +47,7 @@
         counter.textContent = swiper.activeIndex + 1;
     }
 
+    /* Initialize Swiper */
     new Swiper('#gallery-wrapper', {
         a11y: true,
         slidesPerView: 1,
