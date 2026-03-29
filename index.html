@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-based Tactile Graphics Generation for the Visually Impaired</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- model-viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
+
+    <!-- Custom styles -->
+    <link href="style.css" rel="stylesheet">
+
+    <!-- Script -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero text-center subtle-gradient py-5">
+    <div class="container pt-5">
+        <h1 class="hero-heading display-4 max-w-reading">
+            Text-based Tactile Graphics Generation for the Visually Impaired
+        </h1>
+        <p class="subtitle fs-4 text-muted mt-2 mb-4">Anonymous submission</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="#" class="btn btn-tactile"><i class="bi bi-file-earmark-pdf-fill me-1"></i> Paper</a>
+            <a href="https://github.com/AvaLovelace1/TactileGen" class="btn btn-tactile-outline"
+               target="_blank" rel="external noopener noreferrer">
+                <i class="bi bi-github me-1"></i> Code
+            </a>
+            <a href="#" class="btn btn-tactile-outline"><i class="bi bi-play-circle-fill me-1"></i> Demo</a>
+            <a href="#" class="btn btn-tactile-outline"><i class="bi bi-database-fill me-1"></i> Data</a>
+        </div>
+    </div>
+</header>
+
+<!-- ============================================================
+     ABSTRACT
+     ============================================================ -->
+<section id="abstract">
+    <div class="container max-w-reading">
+        <h2 class="section-title">Abstract</h2>
+        <p>
+            Tactile graphics are a primary medium for blind and low-vision (BLV) individuals
+            to access non-textual information. However, they are difficult to scale or personalize.
+            While recent generative models have revolutionized visual content creation, they are
+            optimized for screen-based visual realism and fail to satisfy the haptic perceptual and
+            physical fabrication constraints required for touch. We present the first integrated
+            generative system that produces fabrication-ready 2.5D tactile graphics directly from
+            natural language prompts, jointly encoding global base geometry, fine-grained tactile
+            surface textures, and standard-compliant braille within a unified 3D-printable
+            representation. Our approach introduces fabrication-aware techniques, including
+            template-guided relief generation, a fast diffusion-based text-to-texture module for
+            high-resolution tileable normal maps, and strict base flattening to ensure tactile
+            readability and printability, while supporting both automatic generation and interactive
+            texture control. Extensive evaluations, together with in-person user studies with BLV
+            participants and blindfolded sighted participants using physically 3D-printed outputs,
+            show that participants consistently prefer our results over baselines. By extending
+            generative graphics beyond screens to touchable reliefs, our work broadens access to
+            generative AI for the BLV community and beyond.
+        </p>
+    </div>
+</section>
+
+<!-- ============================================================
+     RESULTS GALLERY
+     ============================================================ -->
+<section id="gallery" class="gallery-section bg-body-variant">
+    <div class="container" style="max-width:960px">
+        <h2 class="section-title">Results Gallery</h2>
+
+        <div class="gallery-controls">
+            <span class="gallery-counter"><span id="gallery-current">1</span> / <span
+                    id="gallery-total">16</span></span>
+            <div class="gallery-nav">
+                <button id="gallery-prev" aria-label="Previous" disabled><i class="bi bi-chevron-left"></i></button>
+                <button id="gallery-next" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="gallery-track-wrapper" id="gallery-wrapper">
+            <div class="gallery-track" id="gallery-track">
+                <!-- Slides are generated by JS below -->
+            </div>
+        </div>
+
+        <p class="swipe-hint"><i class="bi bi-hand-index me-1"></i>Swipe or use arrows to browse results</p>
+    </div>
+</section>
+
+<!-- ============================================================
+     METHOD
+     ============================================================ -->
+<section id="method">
+    <div class="container" style="max-width:960px">
+        <h2 class="section-title">Method Overview</h2>
+
+        <figure class="method-figure mb-4">
+            <div class="placeholder-img">
+                <span><i class="bi bi-image me-2"></i>Method overview diagram &mdash; Fig.&thinsp;2 from paper</span>
+            </div>
+            <figcaption>
+                <strong>Fig.&thinsp;2:</strong> Given a text prompt, we generate 3D-printable 2.5D tactile graphics
+                that jointly encode geometry, surface texture, and braille. We first synthesize a base
+                image constrained by a plate template and lift it to 3D base relief via monocular
+                geometry estimation. In parallel, a tactile texture module produces high-resolution,
+                tileable normal maps which are integrated as geometric deformation on the base relief,
+                followed by fabrication-aware base flattening and braille generation.
+            </figcaption>
+        </figure>
+
+        <div class="method-description">
+            <p>
+                Our pipeline takes a natural language prompt describing an object and its surface textures,
+                and produces a fabrication-ready 2.5D tactile relief through three complementary components:
+                <strong>global geometry</strong> capturing object shape, <strong>tactile surface textures</strong>
+                encoding fine-grained material cues, and <strong>braille annotations</strong> providing
+                semantic grounding.
+            </p>
+        </div>
+
+        <div class="pipeline-steps">
+            <div class="pipeline-step">
+                <div class="step-num">1</div>
+                <h6>Base Geometry</h6>
+                <p>Template-guided relief generation using in-context image editing and monocular depth estimation.</p>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">2</div>
+                <h6>Tactile Texture</h6>
+                <p>Fine-tuned diffusion model generates high-resolution, tileable normal maps from text or sensor
+                    input.</p>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">3</div>
+                <h6>Tileable Patching</h6>
+                <p>Intra-tile rearrangement with diffusion-based inpainting for seamless boundary synthesis.</p>
+            </div>
+            <div class="pipeline-step">
+                <div class="step-num">4</div>
+                <h6>Fabrication &amp; Braille</h6>
+                <p>Flat-base enforcement, braille dot placement, and watertight mesh export for SLA 3D printing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     BIBTEX
+     ============================================================ -->
+<section id="citation">
+    <div class="container max-w-reading">
+        <h2 class="section-title">Citation</h2>
+        <div class="position-relative invert-colors rounded font-monospace small p-3">
+            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn">
+                <i class="bi bi-clipboard-fill me-1"></i> Copy
+            </button>
+            <pre class="mb-0" id="bibtex-content">[Insert citation here]</pre>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
