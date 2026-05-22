@@ -37,8 +37,8 @@
     --bs-secondary-color: var(--bs-muted);
     --bs-stroke: var(--stone-400);
     --bs-stroke-muted: var(--stone-200);
-    --bs-primary: var(--amber-700);
-    --bs-primary-dark: var(--amber-800);
+    --bs-primary: var(--amber-600);
+    --bs-primary-dark: var(--amber-700);
     --bs-accent: var(--amber-400);
 
     /* ---------- Swiper theme colors ---------- */
