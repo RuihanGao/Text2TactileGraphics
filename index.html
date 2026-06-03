@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!-- model-viewer -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
@@ -38,7 +38,7 @@
      ============================================================ -->
 <header class="hero text-center subtle-gradient py-5">
     <div class="container pt-5">
-        <h1 class="hero-heading display-4 max-w-reading">
+        <h1 class="hero-heading display-4">
             Text-based Tactile Graphics Generation for the Visually Impaired
         </h1>
         <p class="subtitle fs-4 text-muted mt-2 mb-4">Anonymous submission</p>
@@ -58,7 +58,7 @@
      ABSTRACT
      ============================================================ -->
 <section id="abstract">
-    <div class="container max-w-reading">
+    <div class="container max-w-image">
         <h2 class="section-title">Abstract</h2>
         <p>
             Tactile graphics are a primary medium for blind and low-vision (BLV) individuals
@@ -97,21 +97,20 @@
                     <div class="col-12 col-md-6 text-center">
                         <p class="gallery-pane-label mb-1">Generated mesh</p>
                         <model-viewer
-                                class="w-100 bg-body-variant"
+                                class="gallery-media rounded"
                                 shadow-intensity="0.6"
+                                shadow-softness="0.5"
+                                exposure="0.6"
+                                environment-image="neutral"
                                 camera-controls
                                 touch-action="pan-y"
                                 auto-rotate>
-                            <div class="text-muted">
-                                <i class="bi bi-box me-2"></i><span data-field="mesh-label"></span>
-                            </div>
+                            <div class="text-muted" slot="progress-bar"></div>
                         </model-viewer>
                     </div>
                     <div class="col-12 col-md-6 text-center">
                         <p class="gallery-pane-label mb-1">3D-printed result</p>
-                        <div class="text-muted bg-body-variant">
-                            <span><i class="bi bi-camera me-2"></i><span data-field="photo-label"></span></span>
-                        </div>
+                        <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy">
                     </div>
                 </div>
                 <div class="text-center p-3 border-top border-muted">

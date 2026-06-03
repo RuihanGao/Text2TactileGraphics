@@ -203,6 +203,14 @@ section + section {
     outline-offset: 0;
 }
 
+.gallery-media {
+    width: 100%;
+    height: 340px;
+    object-fit: contain;
+    background-color: #252530;
+    --poster-color: transparent;
+}
+
 .gallery-pane-label {
     font-family: var(--bs-font-sans-serif), sans-serif;
     font-size: 0.9rem;
