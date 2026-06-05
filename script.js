@@ -95,6 +95,102 @@
     });
 })();
 
+/* ============================================================
+   Method video <-> tab sync (YouTube IFrame Player API)
+   ============================================================ */
+(function () {
+    const VIDEO_ID = 'PNfbGvTIEG8';
+    /* Tab start times (s). Intro 0-11 => no tab highlighted. */
+    const STARTS = [11, 28, 64, 91];
+
+    const tabs = Array.prototype.slice.call(
+        document.querySelectorAll('#method-tabs .pipeline-step'));
+    if (!tabs.length) return;
+
+    let player = null;
+    let ready = false;
+    let pollId = null;
+
+    /* Which tab range contains time t? -1 = intro/none. */
+    function tabAt(t) {
+        let idx = -1;
+        for (let i = 0; i < STARTS.length; i++) {
+            if (t >= STARTS[i]) idx = i;
+        }
+        return idx;
+    }
+
+    function setActive(idx) {
+        tabs.forEach(function (el, i) {
+            el.classList.toggle('active', i === idx);
+        });
+    }
+
+    function poll() {
+        if (!player || typeof player.getCurrentTime !== 'function') return;
+        setActive(tabAt(player.getCurrentTime()));
+    }
+
+    function startPolling() {
+        if (pollId === null) pollId = setInterval(poll, 250);
+    }
+
+    function stopPolling() {
+        if (pollId !== null) {
+            clearInterval(pollId);
+            pollId = null;
+        }
+    }
+
+    /* Tab click/keyboard -> seek + play from that tab's start. */
+    tabs.forEach(function (el, i) {
+        function jump() {
+            if (!ready) return;
+            player.seekTo(STARTS[i], true);
+            player.playVideo();
+            setActive(i);
+        }
+
+        el.addEventListener('click', jump);
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                jump();
+            }
+        });
+    });
+
+    window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player('yt-player', {
+            videoId: VIDEO_ID,
+            playerVars: {rel: 0, modestbranding: 1, playsinline: 1},
+            events: {
+                onReady: function () {
+                    ready = true;
+                },
+                onStateChange: function (e) {
+                    /* 1 = playing -> follow playback; else stop (keep highlight). */
+                    if (e.data === YT.PlayerState.PLAYING) {
+                        poll();
+                        startPolling();
+                    } else {
+                        stopPolling();
+                    }
+                },
+            },
+        });
+    };
+
+    /* Load the IFrame API after the callback is defined. */
+    if (window.YT && window.YT.Player) {
+        window.onYouTubeIframeAPIReady();
+    } else {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+    }
+})();
+
 /* ---- BibTeX copy ---- */
 function copyBibtex() {
     const text = document.getElementById('bibtex-content').textContent;

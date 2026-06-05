@@ -284,6 +284,45 @@ section + section {
     line-height: 1.5;
 }
 
+/* clickable tab states (synced to method video) */
+.pipeline-step[role="button"] {
+    cursor: pointer;
+    transition: border-color var(--transition), box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.pipeline-step[role="button"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--bs-box-shadow);
+}
+
+.pipeline-step[role="button"]:focus-visible {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+.pipeline-step.active {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 2px var(--bs-primary), var(--bs-box-shadow);
+}
+
+/* responsive 16:9 YouTube embed */
+.video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.video-wrap > iframe,
+.video-wrap > #yt-player {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
 /* ---------- bibtex ---------- */
 .invert-colors {
     background: var(--bs-body-color);

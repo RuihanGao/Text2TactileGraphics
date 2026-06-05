@@ -151,9 +151,10 @@
             Out method generates tactile graphics via a multistep pipeline:
         </p>
 
-        <div class="row row-cols-2 row-cols-md-4 g-3">
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="method-tabs">
             <div class="col">
-                <div class="pipeline-step">
+                <div class="pipeline-step" data-start="11" role="button" tabindex="0"
+                     aria-label="Jump video to Base Geometry Generation">
                     <div class="step-num mb-2">1</div>
                     <p class="step-heading mb-2">Base Geometry Generation</p>
                     <p class="small text-muted">
@@ -163,7 +164,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="pipeline-step">
+                <div class="pipeline-step" data-start="28" role="button" tabindex="0"
+                     aria-label="Jump video to Tactile Texture Generation">
                     <div class="step-num mb-2">2</div>
                     <p class="step-heading mb-2">Tactile Texture Generation</p>
                     <p class="small text-muted">
@@ -173,7 +175,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="pipeline-step">
+                <div class="pipeline-step" data-start="64" role="button" tabindex="0"
+                     aria-label="Jump video to Integration and Polishing">
                     <div class="step-num mb-2">3</div>
                     <p class="step-heading mb-2">Integration &amp; Polishing</p>
                     <p class="small text-muted">
@@ -183,7 +186,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="pipeline-step">
+                <div class="pipeline-step" data-start="91" role="button" tabindex="0"
+                     aria-label="Jump video to Physical Fabrication">
                     <div class="step-num mb-2">4</div>
                     <p class="step-heading mb-2">Physical Fabrication</p>
                     <p class="small text-muted">
@@ -193,9 +197,12 @@
             </div>
         </div>
 
-        <figure class="figure w-100 rounded overflow-hidden shadow-lg mt-5">
-            <div class="placeholder-img"></div>
-        </figure>
+        <div class="video-wrap rounded overflow-hidden shadow-lg mt-5">
+            <div id="yt-player"></div>
+        </div>
+        <p class="small text-muted text-center mt-2 mb-0">
+            Click a step above to jump the video to that stage.
+        </p>
     </div>
 </section>
 
