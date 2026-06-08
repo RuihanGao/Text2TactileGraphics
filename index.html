@@ -62,13 +62,16 @@
         </div>
         <p class="footnote text-muted mt-2 mb-4"><sup>&#42;</sup>Equal contribution.</p>
         <div class="d-flex flex-wrap gap-3 justify-content-center">
-            <a href="#" class="btn btn-tactile"><i class="bi bi-file-earmark-pdf-fill me-1"></i> Paper</a>
-            <a href="https://github.com/AvaLovelace1/TactileGen" class="btn btn-tactile-outline"
+            <a href="#" class="btn btn-tactile"><i class="bi bi-file-earmark-pdf-fill me-1" aria-hidden="true"></i> Paper</a>
+            <a href="https://github.com/alex4727/TactileGen/" class="btn btn-tactile-outline"
                target="_blank" rel="external noopener noreferrer">
-                <i class="bi bi-github me-1"></i> Code
+                <i class="bi bi-github me-1" aria-hidden="true"></i> Code
             </a>
-            <a href="#" class="btn btn-tactile-outline"><i class="bi bi-play-circle-fill me-1"></i> Demo</a>
-            <a href="#" class="btn btn-tactile-outline"><i class="bi bi-database-fill me-1"></i> Data</a>
+            <a href="#" class="btn btn-tactile-outline"><i class="bi bi-play-circle-fill me-1" aria-hidden="true"></i> Demo</a>
+            <a href="https://huggingface.co/datasets/alex4727/tactilegen_data" class="btn btn-tactile-outline"
+               target="_blank" rel="external noopener noreferrer">
+                <i class="bi bi-database-fill me-1" aria-hidden="true"></i> Data
+            </a>
         </div>
     </div>
 </header>
@@ -110,13 +113,28 @@
         <p>
             Our method produces fabrication-ready 2.5D tactile graphics from text prompts.
         </p>
+        <p class="small text-muted">
+            Use the <i class="bi bi-download" aria-hidden="true"></i> button to download the
+            interactive 3D model (<code>.glb</code>, left) or the 3D-print-ready mesh
+            (<code>.stl</code>, right).
+        </p>
         <template id="gallery-slide-template">
             <div class="swiper-slide bg-white rounded border border-muted">
                 <div class="row p-4 g-4">
                     <div class="col-12 col-md-6 text-center">
-                        <p class="gallery-pane-label mb-1">Generated mesh</p>
+                        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                            <p class="gallery-pane-label mb-0">Generated mesh</p>
+                            <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-glb"
+                               download title="Download interactive 3D model (.glb)"
+                               aria-label="Download interactive 3D model, GLB file">
+                                <i class="bi bi-download" aria-hidden="true"></i>
+                            </a>
+                        </div>
                         <model-viewer
                                 class="gallery-media rounded"
+                                tabindex="0"
+                                role="img"
+                                aria-roledescription="interactive 3D model"
                                 shadow-intensity="0.6"
                                 shadow-softness="0.5"
                                 exposure="0.6"
@@ -126,9 +144,21 @@
                                 auto-rotate>
                             <div class="text-muted" slot="progress-bar"></div>
                         </model-viewer>
+                        <p class="mesh-kbd-help small text-muted mt-2 mb-0">
+                            Keyboard control: <kbd>tab</kbd> to focus the model, then
+                            <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd> rotate,
+                            <kbd>+</kbd>&nbsp;/&nbsp;<kbd>&minus;</kbd> zoom.
+                        </p>
                     </div>
                     <div class="col-12 col-md-6 text-center">
-                        <p class="gallery-pane-label mb-1">3D-printed result</p>
+                        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                            <p class="gallery-pane-label mb-0">3D-printed result</p>
+                            <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-stl"
+                               download title="Download 3D-print-ready mesh (.stl)"
+                               aria-label="Download 3D-print-ready mesh, STL file">
+                                <i class="bi bi-download" aria-hidden="true"></i>
+                            </a>
+                        </div>
                         <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy">
                     </div>
                 </div>
@@ -142,17 +172,18 @@
             <div class="swiper-wrapper" id="gallery-track"></div>
         </div>
         <div class="d-flex justify-content-between mt-3">
-            <div class="text-muted font-sans-serif fw-semibold fs-5" style="width:96px">
+            <div id="gallery-counter" class="text-muted font-sans-serif fw-semibold fs-5" style="width:96px"
+                 role="status" aria-live="polite" aria-atomic="true">
                 <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
             </div>
             <div class="swiper-pagination position-relative align-content-center" id="gallery-pagination"></div>
             <div class="d-flex gap-2 justify-content-end" style="width:96px">
                 <button id="gallery-prev" class="btn btn-tactile-outline btn-circle fs-6"
-                        aria-label="Previous" disabled>
-                    <i class="bi bi-chevron-left"></i>
+                        aria-label="Previous result" disabled>
+                    <i class="bi bi-chevron-left" aria-hidden="true"></i>
                 </button>
-                <button id="gallery-next" class="btn btn-tactile-outline btn-circle fs-6" aria-label="Next">
-                    <i class="bi bi-chevron-right"></i>
+                <button id="gallery-next" class="btn btn-tactile-outline btn-circle fs-6" aria-label="Next result">
+                    <i class="bi bi-chevron-right" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -170,7 +201,8 @@
             Out method generates tactile graphics via a multistep pipeline:
         </p>
 
-        <div class="row row-cols-2 row-cols-md-4 g-3" id="method-tabs">
+        <div class="row row-cols-2 row-cols-md-4 g-3" id="method-tabs"
+             role="group" aria-label="Method pipeline steps. Activating a step jumps the video to that stage.">
             <div class="col">
                 <div class="pipeline-step" data-start="11" role="button" tabindex="0"
                      aria-label="Jump video to Base Geometry Generation">
@@ -216,7 +248,8 @@
             </div>
         </div>
 
-        <div class="video-wrap rounded overflow-hidden shadow-lg mt-5">
+        <div class="video-wrap rounded overflow-hidden shadow-lg mt-5"
+             role="region" aria-label="Method walkthrough video">
             <div id="yt-player"></div>
         </div>
         <p class="small text-muted text-center mt-2 mb-0">
@@ -232,8 +265,9 @@
     <div class="container max-w-reading">
         <h2 class="section-title">Citation</h2>
         <div class="position-relative invert-colors rounded font-monospace small p-3">
-            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn">
-                <i class="bi bi-clipboard-fill me-1"></i> Copy
+            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn"
+                    aria-live="polite">
+                <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
             </button>
             <pre class="mb-0" id="bibtex-content">[Insert citation here]</pre>
         </div>

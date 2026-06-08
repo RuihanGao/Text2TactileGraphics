@@ -143,6 +143,14 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
 }
 
+/* Compact download button beside each gallery pane label */
+.gallery-dl.btn-circle {
+    width: 1.9rem;
+    height: 1.9rem;
+    flex: 0 0 auto;
+    padding: 0;
+}
+
 /* ---------- hero ---------- */
 .hero-heading {
     font-weight: 800;
@@ -400,4 +408,16 @@ section + section {
 
 .border-muted {
     border-color: var(--bs-stroke-muted);
+}
+
+/* ---- Accessible 3D model: keyboard hint + text description ---- */
+model-viewer:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+.mesh-kbd-help kbd {
+    font-size: 0.75em;
+    padding: 0.1em 0.4em;
+    margin: 0 0.1em;
 }
