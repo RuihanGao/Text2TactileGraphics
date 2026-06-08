@@ -5,22 +5,22 @@
     /* ---- Gallery data (file -> baseline prompt, from data/gallery_ours/prompts.xlsx) ---- */
     const DATA_DIR = 'data/gallery_ours/';
     const results = [
-        {file: 'chair', prompt: 'an armchair with thick cushions, the chair frame has a wicker basket texture, and the chair seat and back have a Tufted / Buttoned leather texture. Front facing.'},
-        {file: 'chair_lollipop', prompt: 'an armchair with thick cushions, the chair frame has a Pretzel twist rods texture, and the chair seat and back have a lollipop texture. Front facing.'},
-        {file: 'chair_ocean', prompt: 'an armchair with thick cushions, the chair frame has a barnacle-coverd rock texture, and the chair seat and back have a jellyfish tenacles texture. Front facing.'},
+        { file: 'dolphin', prompt: 'a dolphin with wings with an avocado skin texture.' },
+        { file: 'football', prompt: 'football with highly detailed surface textures.' },
+        {file: 'lamp', prompt: 'lamp, the base of the lamp has a tree bark texture, and the lamp shade has a cloth_bag texture.'},
+        {file: 'polar_bear', prompt: 'polar bear with highly detailed polar bear fur texture.'},
+        { file: 'canoe', prompt: 'a canoe with an embossed flower texture.' },
+        {file: 'coral', prompt: 'an object centric view of a big single coral under the water, the surface shows a close-up detailed texture of coral.'},
         {file: 'mushroom', prompt: 'a plain mushroom, the mushroom cap has a mushroom cap texture, and the mushroom stalk has a Longitudinal Fibers texture.'},
         {file: 'tire', prompt: 'a smooth front facing surface of car\'s tire, the surface shows a highly detailed tire\'s texture.'},
-        {file: 'coral', prompt: 'an object centric view of a big single coral under the water, the surface shows a close-up detailed texture of coral.'},
         {file: 'ammonite_fossil', prompt: 'an image of large mineral rock surface from above.  In some portion of the surface of large rock contains a few spiral ammonite shell fossil textures.'},
         {file: 'telescope', prompt: 'telescope, the telescope tube and finderscope have a Fine Longitudinal Ribs texture, and the mount of the telescope has a cast metal texture.'},
-        {file: 'table', prompt: 'viewed from above, a round table surface with four partitions, the top left corner has a pine wood skin texture, the top right corner has a broken mosaic tile floor texture, the bottom left corner has a stone wall texture, and the bottom right corner has an oyster shell texture.'},
         {file: 'iphone', prompt: 'iPhone case and an airpod case, the iPhone case has a Crocodile\'s detailed skin / leather surface texture, and the airpod case has a star shaped textures.'},
-        {file: 'football', prompt: 'football with highly detailed surface textures.'},
-        {file: 'polar_bear', prompt: 'polar bear with highly detailed polar bear fur texture.'},
-        {file: 'canoe', prompt: 'a canoe with an embossed flower texture.'},
         {file: 'sponge', prompt: 'square sponge with detailed sponge texture.'},
-        {file: 'lamp', prompt: 'lamp, the base of the lamp has a tree bark texture, and the lamp shade has a cloth_bag texture.'},
-        {file: 'dolphin', prompt: 'a dolphin with wings with an avocado skin texture.'},
+        {file: 'chair', prompt: 'an armchair with thick cushions, the chair frame has a wicker basket texture, and the chair seat and back have a Tufted / Buttoned leather texture. Front facing.'},
+        {file: 'chair_lollipop', prompt: 'an armchair with thick cushions, the chair frame has a Pretzel twist rods texture, and the chair seat and back have a lollipop texture. Front facing.'},
+        { file: 'chair_ocean', prompt: 'an armchair with thick cushions, the chair frame has a barnacle-coverd rock texture, and the chair seat and back have a jellyfish tenacles texture. Front facing.' },
+        {file: 'table', prompt: 'viewed from above, a round table surface with four partitions, the top left corner has a pine wood skin texture, the top right corner has a broken mosaic tile floor texture, the bottom left corner has a stone wall texture, and the bottom right corner has an oyster shell texture.'},
     ];
 
     const track = document.getElementById('gallery-track');

@@ -158,6 +158,45 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -.01em;
 }
 
+/* ---------- authors ---------- */
+.authors {
+    font-family: var(--bs-font-sans-serif), sans-serif;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.7;
+}
+
+.author-link {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.author-link:hover,
+.author-link:focus {
+    color: var(--bs-primary);
+    text-decoration: underline;
+}
+
+.authors sup {
+    font-weight: 500;
+    color: var(--bs-muted);
+}
+
+.affiliations {
+    font-family: var(--bs-font-sans-serif), sans-serif;
+    font-weight: 500;
+}
+
+.affiliations sup {
+    margin-right: .1em;
+}
+
+.footnote {
+    font-family: var(--bs-font-sans-serif), sans-serif;
+    font-size: .85rem;
+}
+
 /* ---------- section generics ---------- */
 section {
     padding: 4rem 0;
