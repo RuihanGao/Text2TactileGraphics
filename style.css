@@ -194,6 +194,10 @@ h1, h2, h3, h4, h5, h6 {
 .affiliations {
     font-family: var(--bs-font-sans-serif), sans-serif;
     font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.75rem;
 }
 
 .affiliations sup {
@@ -429,7 +433,7 @@ model-viewer:focus-visible {
     outline-offset: 2px;
 }
 
-.mesh-kbd-help kbd {
+#gallery kbd {
     font-size: 0.75em;
     padding: 0.1em 0.4em;
     margin: 0 0.1em;

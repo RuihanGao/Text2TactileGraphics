@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text-based Tactile Graphics Generation for the Visually Impaired</title>
 
+    <!-- Favicon / site logo -->
+    <link rel="icon" type="image/png" href="data/touch_mushroom_256.png">
+    <link rel="apple-touch-icon" href="data/touch_mushroom_256.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,9 +60,9 @@
                target="_blank" rel="noopener noreferrer">Jun-Yan Zhu</a><sup>1</sup>
         </div>
         <div class="affiliations fs-5 text-muted mt-2">
-            <sup>1</sup>Carnegie Mellon University
-            <sup>2</sup>Seoul National University
-            <sup>3</sup>University of Illinois Urbana-Champaign
+            <span><sup>1</sup>Carnegie Mellon University</span>
+            <span><sup>2</sup>Seoul National University</span>
+            <span><sup>3</sup>University of Illinois Urbana-Champaign</span>
         </div>
         <p class="footnote text-muted mt-2 mb-4"><sup>&#42;</sup>Equal contribution.</p>
         <div class="d-flex flex-wrap gap-3 justify-content-center">
@@ -69,7 +73,7 @@
             </a>
             <a href="https://huggingface.co/alex4727/text2tactilegraphics_ckpt" class="btn btn-tactile-outline"
                target="_blank" rel="external noopener noreferrer">
-                <i class="bi bi-box-seam-fill me-1" aria-hidden="true"></i> Checkpoints
+                <i class="bi bi-box-seam-fill me-1" aria-hidden="true"></i> Models
             </a>
             <a href="https://huggingface.co/datasets/alex4727/text2tactilegraphics_data" class="btn btn-tactile-outline"
                target="_blank" rel="external noopener noreferrer">
@@ -136,6 +140,11 @@
             Our method produces fabrication-ready 2.5D tactile graphics from text prompts.
         </p>
         <p class="small text-muted">
+            To view the interactive mesh, use mouse or keyboard control: <kbd>tab</kbd> to focus
+            the model, then <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd>
+            rotate, <kbd>+</kbd>&nbsp;/&nbsp;<kbd>&minus;</kbd> zoom.
+        </p>
+        <p class="small text-muted">
             Use the <i class="bi bi-download" aria-hidden="true"></i> button to download the
             interactive 3D model (<code>.glb</code>, left) or the 3D-print-ready mesh
             (<code>.stl</code>, right).
@@ -166,11 +175,6 @@
                                 auto-rotate>
                             <div class="text-muted" slot="progress-bar"></div>
                         </model-viewer>
-                        <p class="mesh-kbd-help small text-muted mt-2 mb-0">
-                            Keyboard control: <kbd>tab</kbd> to focus the model, then
-                            <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd> rotate,
-                            <kbd>+</kbd>&nbsp;/&nbsp;<kbd>&minus;</kbd> zoom.
-                        </p>
                     </div>
                     <div class="col-12 col-md-6 text-center">
                         <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
@@ -281,25 +285,9 @@
 </section>
 
 <!-- ============================================================
-     BIBTEX
-     ============================================================ -->
-<section id="citation" class="bg-body-variant">
-    <div class="container max-w-image">
-        <h2 class="section-title">Citation</h2>
-        <div class="position-relative invert-colors rounded font-monospace small p-3">
-            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn"
-                    aria-live="polite">
-                <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
-            </button>
-            <pre class="mb-0" id="bibtex-content">[Insert citation here]</pre>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================================
      ACKNOWLEDGMENT
      ============================================================ -->
-<section id="acknowledgment">
+<section id="acknowledgment" class="bg-body-variant">
     <div class="container max-w-image">
         <h2 class="section-title">Acknowledgment</h2>
         <p>
@@ -314,6 +302,22 @@
             School Program at Seoul National University, 10%) and NRF grant (No. RS-2024-00405857,
             90%) funded by the Korea government (MSIT).
         </p>
+    </div>
+</section>
+
+<!-- ============================================================
+     BIBTEX
+     ============================================================ -->
+<section id="citation">
+    <div class="container max-w-image">
+        <h2 class="section-title">BibTex</h2>
+        <div class="position-relative invert-colors rounded font-monospace small p-3">
+            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn"
+                    aria-live="polite">
+                <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
+            </button>
+            <pre class="mb-0" id="bibtex-content">[Insert citation here]</pre>
+        </div>
     </div>
 </section>
 
