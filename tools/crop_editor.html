@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16:9 Crop Tool</title>
+<style>
+  :root { --bg:#1b1d23; --panel:#262932; --line:#3a3f4b; --accent:#4f8cff; --ok:#3ecf8e; --txt:#e6e8ee; --mut:#9aa3b2; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--txt); }
+  header { padding:10px 16px; background:var(--panel); border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  .paths { font-size:11px; color:var(--mut); }
+  .wrap { display:flex; height:calc(100vh - 52px); }
+  .main { flex:1; display:flex; flex-direction:column; min-width:0; }
+  .stage { flex:1; display:flex; align-items:center; justify-content:center; padding:18px; overflow:hidden; }
+  .frame { position:relative; box-shadow:0 0 0 1px var(--line), 0 8px 30px rgba(0,0,0,.5); }
+  canvas#view { display:block; background:#0d0e12; max-width:100%; max-height:100%; touch-action:none; cursor:grab; }
+  canvas#view.drag { cursor:grabbing; }
+  .controls { background:var(--panel); border-top:1px solid var(--line); padding:10px 16px; display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  .ctl { display:flex; align-items:center; gap:8px; }
+  .ctl label { color:var(--mut); font-size:12px; min-width:46px; }
+  input[type=range]{ width:170px; accent-color:var(--accent); }
+  button { background:#323743; color:var(--txt); border:1px solid var(--line); border-radius:7px; padding:7px 11px; cursor:pointer; font-size:13px; }
+  button:hover { background:#3b4150; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+  button.primary:hover { filter:brightness(1.08); }
+  button.ghost { background:transparent; }
+  .spacer { flex:1; }
+  .side { width:190px; background:var(--panel); border-left:1px solid var(--line); overflow-y:auto; padding:8px; }
+  .side h2 { font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--mut); margin:6px 4px; }
+  .thumb { position:relative; width:100%; aspect-ratio:16/9; margin-bottom:6px; border:2px solid transparent; border-radius:6px; overflow:hidden; cursor:pointer; background:#0d0e12; }
+  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .thumb.active { border-color:var(--accent); }
+  .thumb .nm { position:absolute; left:0; bottom:0; right:0; font-size:10px; padding:2px 4px; background:rgba(0,0,0,.55); color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .thumb .badge { position:absolute; top:3px; right:3px; width:16px; height:16px; border-radius:50%; background:var(--ok); display:none; align-items:center; justify-content:center; font-size:11px; color:#06281c; }
+  .thumb.saved .badge { display:flex; }
+  .thumb.skipped { opacity:.38; }
+  .thumb.skipped .nm { text-decoration:line-through; }
+  .thumb.skipped .badge { display:flex; background:#e0644f; color:#3a0f08; }
+  .pos { font-size:12px; color:var(--mut); }
+  .hint { font-size:11px; color:var(--mut); max-width:340px; }
+  kbd { background:#11131a; border:1px solid var(--line); border-radius:4px; padding:0 4px; font-size:11px; }
+  .toast { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--ok); color:#06281c; padding:9px 16px; border-radius:8px; font-weight:600; opacity:0; transition:opacity .2s; pointer-events:none; }
+  .toast.show { opacity:1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>16:9 Crop Tool</h1>
+  <span class="pos" id="pos">–</span>
+  <span class="spacer"></span>
+  <span class="paths" id="paths"></span>
+</header>
+
+<div class="wrap">
+  <div class="main">
+    <div class="stage">
+      <div class="frame">
+        <canvas id="view" width="1280" height="720"></canvas>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label>Zoom</label><input type="range" id="zoom" min="0" max="100" value="50"></div>
+      <div class="ctl"><label>Rotate</label><input type="range" id="rot" min="-180" max="180" value="0" step="0.5">
+        <span class="pos" id="rotval" style="min-width:38px">0°</span></div>
+      <button id="rotL" class="ghost" title="Rotate -90°">⟲ 90</button>
+      <button id="rotR" class="ghost" title="Rotate +90°">90 ⟳</button>
+      <button id="reset" class="ghost">Reset</button>
+      <span class="spacer"></span>
+      <span class="hint">drag = pan · wheel = zoom · <kbd>←→</kbd> nav · <kbd>S</kbd> save · <kbd>X</kbd> skip</span>
+      <button id="prev">‹ Prev</button>
+      <button id="next">Next ›</button>
+      <button id="skip" class="ghost">Skip</button>
+      <button id="save" class="primary">Save &amp; Next</button>
+    </div>
+  </div>
+  <div class="side">
+    <h2>Images (<span id="count">0</span>) · <span id="savedCount">0</span> saved · <span id="skipCount">0</span> skipped</h2>
+    <div id="thumbs"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const VW = 1280, VH = 720;          // preview/frame canvas space (16:9)
+const OUT_W = 1920, OUT_H = 1080;   // saved output resolution
+const K = OUT_W / VW;               // export scale factor (1.5)
+
+const cv = document.getElementById('view');
+const ctx = cv.getContext('2d');
+
+let images = [];      // [{name, saved}]
+let idx = 0;
+let img = null;       // current HTMLImageElement
+const state = {};     // name -> {scale, rot, tx, ty, minScale}
+let cur = null;       // current state object
+
+// ---------- data ----------
+async function loadList() {
+  const r = await fetch('/api/list');
+  const d = await r.json();
+  images = d.images;
+  document.getElementById('paths').textContent = `src: ${d.srcDir}  →  out: ${d.outDir}`;
+  document.getElementById('count').textContent = images.length;
+  buildThumbs();
+  if (images.length) selectImage(0);
+  updateCounts();
+}
+
+function buildThumbs() {
+  const box = document.getElementById('thumbs');
+  box.innerHTML = '';
+  images.forEach((im, i) => {
+    const d = document.createElement('div');
+    d.className = 'thumb' + (im.saved ? ' saved' : '');
+    d.dataset.i = i;
+    d.innerHTML = `<img loading="lazy" src="/src/${encodeURIComponent(im.name)}">
+                   <div class="badge">✓</div><div class="nm">${im.name}</div>`;
+    d.onclick = () => selectImage(i);
+    box.appendChild(d);
+  });
+}
+
+function markThumbs() {
+  [...document.querySelectorAll('.thumb')].forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+    t.classList.toggle('saved', images[i].saved && !images[i].skipped);
+    t.classList.toggle('skipped', !!images[i].skipped);
+    const b = t.querySelector('.badge');
+    if (b) b.textContent = images[i].skipped ? '✕' : '✓';
+  });
+}
+function updateCounts() {
+  document.getElementById('savedCount').textContent = images.filter(i => i.saved && !i.skipped).length;
+  document.getElementById('skipCount').textContent = images.filter(i => i.skipped).length;
+}
+// next image that isn't skipped (wraps); returns `from` if none other available
+function nextIndex(from) {
+  for (let k = 1; k <= images.length; k++) {
+    const i = (from + k) % images.length;
+    if (i !== from && !images[i].skipped) return i;
+  }
+  return from;
+}
+function syncSkipBtn() {
+  document.getElementById('skip').textContent =
+    (images[idx] && images[idx].skipped) ? 'Unskip' : 'Skip';
+}
+
+// ---------- image select ----------
+function coverScale(nw, nh) { return Math.max(VW / nw, VH / nh); }
+
+function selectImage(i) {
+  idx = i;
+  const name = images[i].name;
+  document.getElementById('pos').textContent = `${i + 1} / ${images.length} — ${name}`;
+  markThumbs();
+  syncSkipBtn();
+  const el = new Image();
+  el.onload = () => {
+    img = el;
+    if (!state[name]) {
+      const min = coverScale(el.naturalWidth, el.naturalHeight);
+      state[name] = { scale: min, minScale: min, rot: 0, tx: 0, ty: 0 };
+    }
+    cur = state[name];
+    syncControls();
+    draw();
+  };
+  el.src = '/src/' + encodeURIComponent(name);
+}
+
+// zoom slider maps log-scale from minScale (cover) to 8x cover
+function scaleToSlider(s) {
+  const r = Math.log(s / cur.minScale) / Math.log(8);
+  return Math.max(0, Math.min(100, r * 100));
+}
+function sliderToScale(v) { return cur.minScale * Math.pow(8, v / 100); }
+
+function syncControls() {
+  document.getElementById('zoom').value = scaleToSlider(cur.scale);
+  document.getElementById('rot').value = cur.rot * 180 / Math.PI;
+  document.getElementById('rotval').textContent = Math.round(cur.rot * 180 / Math.PI) + '°';
+}
+
+// ---------- drawing ----------
+function paint(c, w, h, k, fillBg) {
+  c.clearRect(0, 0, w, h);
+  if (fillBg) { c.fillStyle = '#ffffff'; c.fillRect(0, 0, w, h); }
+  if (!img) return;
+  c.save();
+  c.translate(w / 2 + k * cur.tx, h / 2 + k * cur.ty);
+  c.rotate(cur.rot);
+  c.scale(cur.scale * k, cur.scale * k);
+  c.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
+  c.restore();
+}
+function draw() { paint(ctx, VW, VH, 1, true); }
+
+// ---------- interaction ----------
+function canvasScale() { return cv.width / cv.getBoundingClientRect().width; }
+
+let dragging = false, lastX = 0, lastY = 0;
+cv.addEventListener('pointerdown', e => {
+  dragging = true; lastX = e.clientX; lastY = e.clientY;
+  cv.setPointerCapture(e.pointerId); cv.classList.add('drag');
+});
+cv.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  const s = canvasScale();
+  cur.tx += (e.clientX - lastX) * s;
+  cur.ty += (e.clientY - lastY) * s;
+  lastX = e.clientX; lastY = e.clientY;
+  draw();
+});
+function endDrag(e) { dragging = false; cv.classList.remove('drag'); }
+cv.addEventListener('pointerup', endDrag);
+cv.addEventListener('pointercancel', endDrag);
+
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = cv.getBoundingClientRect();
+  const s = canvasScale();
+  const px = (e.clientX - rect.left) * s;   // cursor in canvas space
+  const py = (e.clientY - rect.top) * s;
+  const f = Math.exp(-e.deltaY * 0.0015);   // zoom factor about cursor
+  // image-center screen pos S = (VW/2+tx, VH/2+ty); keep cursor-anchored point fixed
+  const Sx = VW / 2 + cur.tx, Sy = VH / 2 + cur.ty;
+  const newScale = Math.max(cur.minScale * 0.25, Math.min(cur.minScale * 8, cur.scale * f));
+  const ff = newScale / cur.scale;
+  const Sx2 = px * (1 - ff) + ff * Sx;
+  const Sy2 = py * (1 - ff) + ff * Sy;
+  cur.scale = newScale;
+  cur.tx = Sx2 - VW / 2;
+  cur.ty = Sy2 - VH / 2;
+  syncControls();
+  draw();
+}, { passive: false });
+
+document.getElementById('zoom').addEventListener('input', e => {
+  cur.scale = sliderToScale(+e.target.value);
+  draw();
+});
+document.getElementById('rot').addEventListener('input', e => {
+  cur.rot = (+e.target.value) * Math.PI / 180;
+  document.getElementById('rotval').textContent = Math.round(+e.target.value) + '°';
+  draw();
+});
+document.getElementById('rotL').onclick = () => { cur.rot -= Math.PI / 2; syncControls(); draw(); };
+document.getElementById('rotR').onclick = () => { cur.rot += Math.PI / 2; syncControls(); draw(); };
+document.getElementById('reset').onclick = () => {
+  cur.scale = cur.minScale; cur.rot = 0; cur.tx = 0; cur.ty = 0; syncControls(); draw();
+};
+document.getElementById('prev').onclick = () => selectImage((idx - 1 + images.length) % images.length);
+document.getElementById('next').onclick = () => selectImage((idx + 1) % images.length);
+document.getElementById('save').onclick = () => saveCurrent(true);
+document.getElementById('skip').onclick = () => toggleSkip();
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowLeft') { selectImage((idx - 1 + images.length) % images.length); }
+  else if (e.key === 'ArrowRight') { selectImage((idx + 1) % images.length); }
+  else if (e.key.toLowerCase() === 's') { e.preventDefault(); saveCurrent(true); }
+  else if (e.key.toLowerCase() === 'x') { e.preventDefault(); toggleSkip(); }
+  else if (e.key.toLowerCase() === 'r') { document.getElementById('reset').click(); }
+});
+
+// remove (or restore) the current image from the collection
+async function toggleSkip() {
+  if (!images.length) return;
+  const name = images[idx].name;
+  const sk = !images[idx].skipped;
+  images[idx].skipped = sk;
+  if (sk) {
+    if (images[idx].saved) {            // drop any crop already written to disk
+      images[idx].saved = false;
+      fetch('/api/delete', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+    }
+    markThumbs(); updateCounts();
+    toast('Skipped ' + name);
+    const nx = nextIndex(idx);
+    if (nx !== idx) { selectImage(nx); return; }
+  } else {
+    toast('Unskipped ' + name);
+  }
+  markThumbs(); updateCounts(); syncSkipBtn();
+}
+
+// ---------- save ----------
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 1400);
+}
+
+async function saveCurrent(advance) {
+  if (!img) return;
+  const off = document.createElement('canvas');
+  off.width = OUT_W; off.height = OUT_H;
+  const octx = off.getContext('2d');
+  octx.imageSmoothingEnabled = true; octx.imageSmoothingQuality = 'high';
+  paint(octx, OUT_W, OUT_H, K, true);
+  const dataURL = off.toDataURL('image/jpeg', 0.95);
+  const name = images[idx].name;
+  const r = await fetch('/api/save', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, dataURL })
+  });
+  const d = await r.json();
+  if (d.ok) {
+    images[idx].saved = true;
+    images[idx].skipped = false;        // saving re-includes a skipped image
+    markThumbs(); updateCounts(); syncSkipBtn();
+    toast('Saved ' + d.saved);
+    if (advance) { const nx = nextIndex(idx); setTimeout(() => selectImage(nx), 120); }
+  } else {
+    toast('Error: ' + d.error);
+  }
+}
+
+loadList();
+</script>
+</body>
+</html>

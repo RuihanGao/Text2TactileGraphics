@@ -178,6 +178,10 @@
         slidesPerView: 1,
         spaceBetween: 24,
         grabCursor: true,
+        // Don't swipe the slide when the drag starts on a 3D viewer —
+        // let model-viewer's own camera-controls handle rotate/zoom.
+        noSwiping: true,
+        noSwipingSelector: 'model-viewer',
         keyboard: {enabled: true},
         navigation: {
             nextEl: '#gallery-next',
@@ -195,7 +199,9 @@
 })();
 
 /* ============================================================
-   Method video <-> tab sync (YouTube IFrame Player API)
+   Method video <-> tab sync (YouTube IFrame Player API).
+   The player is embedded inline (YouTube renders its own preview); tab
+   clicks seek the video and playback drives the tab highlighting.
    ============================================================ */
 (function () {
     const VIDEO_ID = 'PNfbGvTIEG8';

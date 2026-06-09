@@ -353,21 +353,34 @@ section + section {
     box-shadow: 0 0 0 2px var(--bs-primary), var(--bs-box-shadow);
 }
 
-/* responsive 16:9 YouTube embed */
-.video-wrap {
+/* responsive 16:9 YouTube embed (matches visual-tactile-synthesis.github.io) */
+.video-container {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
     background: #000;
 }
 
-.video-wrap > iframe,
-.video-wrap > #yt-player {
+.video-container iframe {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: 0;
+}
+
+/* ---- TL;DR teaser caption (full width, matches the video below) ---- */
+.tldr {
+    line-height: 1.5;
+}
+
+.tldr-label {
+    font-family: var(--bs-font-sans-serif), sans-serif;
+    font-weight: 700;
+    color: var(--bs-primary-dark);
 }
 
 /* ---------- bibtex ---------- */
