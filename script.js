@@ -204,9 +204,9 @@
    clicks seek the video and playback drives the tab highlighting.
    ============================================================ */
 (function () {
-    const VIDEO_ID = 'PNfbGvTIEG8';
+    const VIDEO_ID = 'WJFewO33HCs';
     /* Tab start times (s). Intro 0-11 => no tab highlighted. */
-    const STARTS = [11, 28, 64, 91];
+    const STARTS = [11, 27, 52, 87];
 
     const tabs = Array.prototype.slice.call(
         document.querySelectorAll('#method-tabs .pipeline-step'));
