@@ -47,10 +47,8 @@
     --swiper-pagination-bullet-inactive-opacity: 0.4;
 
     /* ---------- fonts ---------- */
-    --bs-font-sans-serif: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --bs-font-serif: "Source Serif 4", serif;
-    --bs-font-monospace: "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --bs-body-font-family: var(--bs-font-serif);
+    --bs-font-sans-serif: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-font-monospace: "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-body-line-height: 1.6;
 
     /* ---------- shadows ---------- */
@@ -60,6 +58,10 @@
 
     /* ---------- transitions ---------- */
     --transition: .15s ease;
+}
+
+body {
+    font-optical-sizing: auto;
 }
 
 /* ---------- base ---------- */
