@@ -41,14 +41,19 @@
 
     /* ---- Build an accessible text description from structured parts ---- */
     function articleFor(word) {
-        return /^[aeiou]/i.test(word) ? 'an' : 'a';
+        return /^[aeiou]/i.test(String(word).trim()) ? 'an' : 'a';
+    }
+    function verbFor(partLabel) {
+        return /&/.test(partLabel) || /(?:^|\s)\w+s$/i.test(partLabel) ? 'have' : 'has';
     }
     function buildDescription(r) {
         const clauses = r.parts.map(function (p) {
-            return 'the ' + p[0].toLowerCase() + ' has a ' + p[1];
+            const label = p[0].trim();
+            const texture = p[1].trim();
+            return `the ${label.toLowerCase()} ${verbFor(label)} ${articleFor(texture)} ${texture}`;
         }).join('; ');
         const sentence = clauses.charAt(0).toUpperCase() + clauses.slice(1);
-        return 'Interactive 3D model of ' + articleFor(r.object) + ' ' + r.object + '. ' + sentence + '.';
+        return `Interactive 3D model of ${articleFor(r.object)} ${r.object}. ${sentence}.`;
     }
 
     /* ---- Keyboard navigation for <model-viewer> (a11y) ----
@@ -122,7 +127,7 @@
 
         const photo = slide.querySelector('[data-field="photo"]');
         photo.src = DATA_DIR + r.file + '.jpeg';
-        photo.alt = '3D-printed result for: ' + prompt;
+        photo.alt = `3D-printed result of ${r.object} generated from the prompt: ${r.prompt}.`;
 
         // Download links: left -> .glb (interactive model), right -> .stl (print-ready).
         const dlGlb = slide.querySelector('[data-field="dl-glb"]');
