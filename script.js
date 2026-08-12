@@ -4,6 +4,14 @@
 (function () {
     /* ---- Gallery data (file -> baseline prompt, from data/gallery_ours/prompts.xlsx) ---- */
     const DATA_DIR = 'data/gallery_ours/';
+
+    // Stop autorotation when reduced-motion is requested
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('model-viewer[auto-rotate]').forEach(function (mv) { mv.removeAttribute('auto-rotate'); });
+        });
+    }
+
     const results = [
         { file: 'dolphin', prompt: 'a dolphin with wings with an avocado skin texture.',
           object: 'winged dolphin', parts: [['Entire body', 'avocado skin texture']] },
