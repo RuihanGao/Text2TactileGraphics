@@ -62,6 +62,8 @@
 </head>
 <body>
 
+<a href="#main" class="btn btn-tactile skip-link">Skip to main content</a>
+
 <!-- ============================================================
      HERO
      ============================================================ -->
@@ -70,8 +72,8 @@
         <h1 class="hero-heading display-4">
             Text-based Tactile Graphics Generation for the Visually Impaired
         </h1>
-        <p class="conference-venue fs-5 fw-bold mt-3 mb-0">ECCV 2026</p>
-        <div class="authors fs-4 mt-3">
+        <p class="fs-5 fw-bold mt-3">ECCV 2026</p>
+        <div class="authors fs-4 fw-medium mt-3">
             <a href="https://ruihangao.github.io/" class="author-link"
                target="_blank" rel="noopener noreferrer">Ruihan Gao</a><sup>1,&#42;</sup>,
             <a href="https://joonghyuk.com/" class="author-link"
@@ -85,14 +87,14 @@
             <a href="https://www.cs.cmu.edu/~junyanz/" class="author-link"
                target="_blank" rel="noopener noreferrer">Jun-Yan Zhu</a><sup>1</sup>
         </div>
-        <div class="affiliations fs-5 text-muted mt-2">
+        <div class="affiliations text-muted mt-2">
             <span><sup>1</sup>Carnegie Mellon University</span>
             <span><sup>2</sup>Seoul National University</span>
             <span><sup>3</sup>University of Illinois Urbana-Champaign</span>
         </div>
-        <p class="footnote text-muted mt-2 mb-4"><sup>&#42;</sup>Equal contribution.</p>
+        <p class="text-muted mt-2 mb-4"><small><sup>&#42;</sup>Equal contribution.</small></p>
         <div class="d-flex flex-wrap gap-3 justify-content-center">
-            <a href="https://arxiv.org/abs/2607.22674" class="btn btn-tactile-outline"
+            <a href="https://arxiv.org/abs/2607.22674" class="btn btn-tactile"
                target="_blank" rel="external noopener noreferrer">
                 <i class="bi bi-file-earmark-pdf-fill me-1" aria-hidden="true"></i> Paper
             </a>
@@ -112,20 +114,23 @@
     </div>
 </header>
 
+<main id="main">
+
 <!-- ============================================================
      TEASER
      ============================================================ -->
-<section id="teaser">
-    <div class="container max-w-image">
-        <p class="tldr text-center fs-5 mb-4">
-            <span class="tldr-label">TL;DR:</span>
-            We develop Text2TactileGraphics, the first generative system to bring generative visual models from digital world to fingertips, turning text prompts into 3D-printable touchable
+<section id="teaser" aria-labelledby="teaser-title">
+    <div class="container">
+        <h2 id="teaser-title" class="visually-hidden">TLDR</h2>
+        <p class="text-center fs-5 mb-4">
+            <span class="fw-bold">TL;DR:</span>
+            We develop Text2TactileGraphics, the first generative system to bring generative visual models from
+            digital world to fingertips, turning text prompts into 3D-printable touchable
             graphics for blind and low-vision accessibility.
         </p>
         <div class="video-container rounded shadow-lg">
             <iframe src="https://www.youtube.com/embed/tKSZLxfZoPY"
-                    title="Text2TactileGraphics teaser video"
-                    frameborder="0" allowfullscreen></iframe>
+                    title="Text2TactileGraphics teaser video" allowfullscreen></iframe>
         </div>
     </div>
 </section>
@@ -133,9 +138,9 @@
 <!-- ============================================================
      ABSTRACT
      ============================================================ -->
-<section id="abstract">
-    <div class="container max-w-image">
-        <h2 class="section-title">Abstract</h2>
+<section id="abstract" aria-labelledby="abstract-title">
+    <div class="container">
+        <h2 id="abstract-title" class="section-title">Abstract</h2>
         <p>
             Tactile graphics are a primary medium for blind and low-vision (BLV) individuals
             to access non-textual information. However, they are difficult to scale or personalize.
@@ -161,16 +166,17 @@
 <!-- ============================================================
      RESULTS GALLERY
      ============================================================ -->
-<section id="gallery" class="gallery-section bg-body-variant shadow-lg">
-    <div class="container max-w-image">
-        <h2 class="section-title">Gallery</h2>
+<section id="gallery" class="gallery-section bg-body-variant shadow-lg" aria-labelledby="gallery-title">
+    <div class="container">
+        <h2 id="gallery-title" class="section-title">Gallery</h2>
         <p>
             Our method produces fabrication-ready 2.5D tactile graphics from text prompts.
         </p>
         <p class="small text-muted">
             To view the interactive mesh, use mouse or keyboard control: <kbd>tab</kbd> to focus
-            the model, then <kbd>&larr;</kbd><kbd>&rarr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd>
-            rotate, <kbd>+</kbd>&nbsp;/&nbsp;<kbd>&minus;</kbd> zoom.
+            the model, then
+            <kbd>&larr;</kbd>&thinsp;<kbd>&rarr;</kbd>&thinsp;<kbd>&uarr;</kbd>&thinsp;<kbd>&darr;</kbd>
+            rotate, <kbd>+</kbd>&thinsp;/&thinsp;<kbd>&minus;</kbd> zoom.
         </p>
         <p class="small text-muted">
             Use the <i class="bi bi-download" aria-hidden="true"></i> button to download the
@@ -201,7 +207,6 @@
                                 camera-controls
                                 touch-action="pan-y"
                                 auto-rotate>
-                            <div class="text-muted" slot="progress-bar"></div>
                         </model-viewer>
                     </div>
                     <div class="col-12 col-md-6 text-center">
@@ -226,7 +231,7 @@
             <div class="swiper-wrapper" id="gallery-track"></div>
         </div>
         <div class="d-flex justify-content-between mt-3">
-            <div id="gallery-counter" class="text-muted font-sans-serif fw-semibold fs-5" style="width:96px"
+            <div id="gallery-counter" class="text-muted fw-semibold fs-5" style="width:96px"
                  role="status" aria-live="polite" aria-atomic="true">
                 <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
             </div>
@@ -247,9 +252,9 @@
 <!-- ============================================================
      METHOD
      ============================================================ -->
-<section id="method">
-    <div class="container max-w-image">
-        <h2 class="section-title">Method</h2>
+<section id="method" aria-labelledby="method-title">
+    <div class="container">
+        <h2 id="method-title" class="section-title">Method</h2>
 
         <p>
             Out method generates tactile graphics via a multistep pipeline:
@@ -262,7 +267,7 @@
                      aria-label="Jump video to Base Geometry Generation">
                     <div class="step-num mb-2">1</div>
                     <p class="step-heading mb-2">Base Geometry Generation</p>
-                    <p class="small text-muted">
+                    <p class="small text-muted mb-0">
                         We first synthesize a base image constrained by a plate template, and lift the image to
                         2.5D base relief via monocular geometry estimation.
                     </p>
@@ -273,7 +278,7 @@
                      aria-label="Jump video to Tactile Texture Generation">
                     <div class="step-num mb-2">2</div>
                     <p class="step-heading mb-2">Tactile Texture Generation</p>
-                    <p class="small text-muted">
+                    <p class="small text-muted mb-0">
                         A tactile texture module produces tileable normal maps from text prompts or tactile
                         sensor captures, which can be assigned to object parts through text or user interaction.
                     </p>
@@ -284,7 +289,7 @@
                      aria-label="Jump video to Integration and Polishing">
                     <div class="step-num mb-2">3</div>
                     <p class="step-heading mb-2">Integration &amp; Polishing</p>
-                    <p class="small text-muted">
+                    <p class="small text-muted mb-0">
                         The textures are integrated as geometric deformation on the base relief, followed by
                         fabrication-aware base flattening and braille generation.
                     </p>
@@ -295,7 +300,7 @@
                      aria-label="Jump video to Physical Fabrication">
                     <div class="step-num mb-2">4</div>
                     <p class="step-heading mb-2">Physical Fabrication</p>
-                    <p class="small text-muted">
+                    <p class="small text-muted mb-0">
                         The resulting watertight mesh is fabricated via SLA resin 3D printing.
                     </p>
                 </div>
@@ -315,10 +320,10 @@
 <!-- ============================================================
      ACKNOWLEDGMENT
      ============================================================ -->
-<section id="acknowledgment" class="bg-body-variant">
-    <div class="container max-w-image">
-        <h2 class="section-title">Acknowledgment</h2>
-        <p>
+<section id="acknowledgment" class="bg-body-variant" aria-labelledby="acknowledgment-title">
+    <div class="container">
+        <h2 id="acknowledgment-title" class="section-title">Acknowledgment</h2>
+        <p class="small">
             We thank Amin Mirzaee, Maxwell Jones, and Nupur Kumari for their helpful comments and
             discussion. We are also grateful to Sheng-Yu Wang for proofreading the draft.
             We appreciate the generous help from the Library of Accessible Media for Pennsylvanians
@@ -336,9 +341,9 @@
 <!-- ============================================================
      BIBTEX
      ============================================================ -->
-<section id="citation">
-    <div class="container max-w-image">
-        <h2 class="section-title">BibTex</h2>
+<section id="citation" aria-labelledby="citation-title">
+    <div class="container">
+        <h2 id="citation-title" class="section-title">BibTex</h2>
         <div class="position-relative invert-colors rounded font-monospace small p-3">
             <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn"
                     aria-live="polite">
@@ -353,6 +358,8 @@
         </div>
     </div>
 </section>
+
+</main>
 
 </body>
 </html>

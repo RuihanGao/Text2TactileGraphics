@@ -35,11 +35,12 @@
     --bs-body-bg-variant: var(--stone-100);
     --bs-muted: var(--stone-600);
     --bs-secondary-color: var(--bs-muted);
-    --bs-stroke: var(--stone-400);
+    --bs-stroke: var(--stone-500);
     --bs-stroke-muted: var(--stone-200);
     --bs-primary: var(--amber-600);
     --bs-primary-dark: var(--amber-700);
     --bs-accent: var(--amber-400);
+    --bs-code-color: var(--bs-primary-dark);
 
     /* ---------- Swiper theme colors ---------- */
     --swiper-theme-color: var(--bs-primary);
@@ -49,7 +50,6 @@
     /* ---------- fonts ---------- */
     --bs-font-sans-serif: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-font-monospace: "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --bs-body-line-height: 1.6;
 
     /* ---------- shadows ---------- */
     --bs-box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
@@ -67,14 +67,12 @@ body {
 /* ---------- base ---------- */
 h1, h2, h3, h4, h5, h6 {
     color: var(--bs-body-color-dark);
-    font-family: var(--bs-font-sans-serif), sans-serif;
 }
 
 /* ---------- buttons ---------- */
 .btn {
     --bs-btn-padding-x: 1.25rem;
     --bs-btn-padding-y: .5rem;
-    --bs-btn-font-family: var(--bs-font-sans-serif);
     --bs-btn-font-size: .9rem;
     --bs-btn-font-weight: 600;
     --bs-btn-border-radius: var(--bs-border-radius-pill);
@@ -89,8 +87,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:focus-visible {
-    outline: 2px solid var(--bs-primary);
-    outline-offset: 0;
+    outline: 3px solid var(--bs-primary-dark);
+    outline-offset: 2px;
 }
 
 .btn:active {
@@ -127,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
     --bs-btn-border-color: var(--bs-stroke);
     --bs-btn-active-border-color: var(--bs-stroke);
     --bs-btn-hover-border-color: var(--bs-body-color);
-    --bs-btn-disabled-opacity: 0.2;
+    --bs-btn-disabled-opacity: 0.4;
 }
 
 .btn-square {
@@ -156,46 +154,27 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------- hero ---------- */
 .hero-heading {
     font-weight: 800;
-    letter-spacing: -.02em;
-    line-height: 1.15;
     margin: 0 auto;
     text-wrap: balance;
 }
 
-.subtitle {
-    font-family: var(--bs-font-sans-serif), sans-serif;
-    font-weight: 600;
-    letter-spacing: -.01em;
-}
-
 /* ---------- authors ---------- */
-.authors {
-    font-family: var(--bs-font-sans-serif), sans-serif;
-    font-weight: 600;
-    letter-spacing: -.01em;
-    line-height: 1.7;
-}
 
 .author-link {
     color: var(--bs-body-color);
-    text-decoration: none;
     transition: color var(--transition);
 }
 
 .author-link:hover,
 .author-link:focus {
-    color: var(--bs-primary);
-    text-decoration: underline;
+    color: var(--bs-primary-dark);
 }
 
 .authors sup {
-    font-weight: 500;
     color: var(--bs-muted);
 }
 
 .affiliations {
-    font-family: var(--bs-font-sans-serif), sans-serif;
-    font-weight: 500;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -203,12 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .affiliations sup {
-    margin-right: .1em;
-}
-
-.footnote {
-    font-family: var(--bs-font-sans-serif), sans-serif;
-    font-size: .85rem;
+    margin-right: .25em;
 }
 
 /* ---------- section generics ---------- */
@@ -221,7 +195,6 @@ section {
         padding: 3rem 0;
     }
 }
-
 
 section + section {
     border-top: 1px solid var(--bs-stroke-muted);
@@ -247,13 +220,32 @@ section + section {
     width: auto !important;
 }
 
+:root {
+    --swiper-pagination-bullet-horizontal-gap: 8px;
+}
+
 .swiper-pagination-bullet {
+    position: relative;
     transition: opacity var(--transition), background var(--transition);
 }
 
+/* WCAG 2.5.8: Expand the pointer target with a transparent overlay. */
+.swiper-pagination-bullet::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+}
+
 .swiper-pagination-bullet:focus-visible {
-    outline: 2px solid var(--bs-primary);
-    outline-offset: 0;
+    outline: 3px solid var(--bs-primary-dark);
+    outline-offset: 3px;
+}
+
+@media (max-width: 767.98px) {
+    #gallery-pagination {
+        display: none;
+    }
 }
 
 .gallery-media {
@@ -265,7 +257,6 @@ section + section {
 }
 
 .gallery-pane-label {
-    font-family: var(--bs-font-sans-serif), sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -283,19 +274,6 @@ section + section {
 
 .prompt::after {
     content: '\201D';
-}
-
-/* ---------- method ---------- */
-.placeholder-img {
-    width: 100%;
-    height: 400px;
-    background: repeating-linear-gradient(
-            45deg,
-            var(--stone-100),
-            var(--stone-100) 12px,
-            var(--stone-200) 12px,
-            var(--stone-200) 24px
-    );
 }
 
 /* pipeline steps */
@@ -318,23 +296,14 @@ section + section {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background: var(--bs-primary);
+    background: var(--bs-primary-dark);
     color: white;
-    font-family: var(--bs-font-sans-serif), sans-serif;
     font-weight: 700;
 }
 
 .pipeline-step .step-heading {
-    line-height: 1.3;
     font-weight: 700;
-    font-family: var(--bs-font-sans-serif), sans-serif;
     color: var(--bs-body-color-dark);
-}
-
-.pipeline-step p {
-    color: var(--stone-500);
-    margin: 0;
-    line-height: 1.5;
 }
 
 /* clickable tab states (synced to method video) */
@@ -350,7 +319,7 @@ section + section {
 }
 
 .pipeline-step[role="button"]:focus-visible {
-    outline: 2px solid var(--bs-primary);
+    outline: 3px solid var(--bs-primary-dark);
     outline-offset: 2px;
 }
 
@@ -378,17 +347,6 @@ section + section {
     border: 0;
 }
 
-/* ---- TL;DR teaser caption (full width, matches the video below) ---- */
-.tldr {
-    line-height: 1.5;
-}
-
-.tldr-label {
-    font-family: var(--bs-font-sans-serif), sans-serif;
-    font-weight: 700;
-    color: var(--bs-primary-dark);
-}
-
 /* ---------- bibtex ---------- */
 .invert-colors {
     background: var(--bs-body-color);
@@ -401,10 +359,11 @@ section + section {
     right: .75rem;
 }
 
-/* ---------- utility ---------- */
-.font-sans-serif {
-    font-family: var(--bs-font-sans-serif), sans-serif;
+.copy-btn:focus-visible {
+    outline-color: var(--bs-primary);
 }
+
+/* ---------- utility ---------- */
 
 .text-muted {
     color: var(--bs-muted);
@@ -422,21 +381,30 @@ section + section {
     max-width: 720px;
 }
 
-.max-w-image {
-}
-
 .border-muted {
     border-color: var(--bs-stroke-muted);
 }
 
 /* ---- Accessible 3D model: keyboard hint + text description ---- */
 model-viewer:focus-visible {
-    outline: 3px solid var(--bs-primary);
+    outline: 3px solid var(--bs-primary-dark);
     outline-offset: 2px;
 }
 
 #gallery kbd {
-    font-size: 0.75em;
     padding: 0.1em 0.4em;
-    margin: 0 0.1em;
+}
+
+/* ---------- skip link ---------- */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -110%);
+    z-index: 1080;
+    border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+}
+
+.skip-link:focus {
+    transform: translate(-50%, 0);
 }
