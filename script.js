@@ -41,7 +41,7 @@
           object: 'armchair', parts: [['Frame', 'wicker basket texture'], ['Seat & back', 'tufted / buttoned leather texture']]},
         {file: 'chair_lollipop', prompt: 'an armchair with thick cushions, the chair frame has a Pretzel twist rods texture, and the chair seat and back have a lollipop texture. Front facing.',
           object: 'armchair', parts: [['Frame', 'pretzel-twist rods texture'], ['Seat & back', 'lollipop texture']]},
-        { file: 'chair_ocean', prompt: 'an armchair with thick cushions, the chair frame has a barnacle-covered rock texture, and the chair seat and back have a jellyfish tenacles texture. Front facing.',
+        { file: 'chair_ocean', prompt: 'an armchair with thick cushions, the chair frame has a barnacle-covered rock texture, and the chair seat and back have a jellyfish tentacles texture. Front facing.',
           object: 'armchair', parts: [['Frame', 'barnacle-covered rock texture'], ['Seat & back', 'jellyfish tentacles texture']] },
         {file: 'table', prompt: 'viewed from above, a round table surface with four partitions, the top left corner has a pine wood skin texture, the top right corner has a broken mosaic tile floor texture, the bottom left corner has a stone wall texture, and the bottom right corner has an oyster shell texture.',
           object: 'round four-partition table', parts: [['Top-left quadrant', 'pine wood texture'], ['Top-right quadrant', 'broken mosaic tile floor texture'], ['Bottom-left quadrant', 'stone wall texture'], ['Bottom-right quadrant', 'oyster shell texture']]},
