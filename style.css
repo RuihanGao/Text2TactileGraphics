@@ -3,6 +3,8 @@
    ============================================================ */
 
 :root {
+    color-scheme: light dark;
+
     /* ---------- palette ---------- */
     --stone-50: #fafaf9;
     --stone-100: #f5f5f4;
@@ -27,20 +29,41 @@
     --amber-900: #78350f;
     --amber-950: #451a03;
 
-    /* ---------- Bootstrap theme colors ---------- */
-    --bs-body-color: var(--stone-800);
-    --bs-body-color-light: var(--stone-700);
-    --bs-body-color-dark: var(--stone-900);
-    --bs-body-bg: var(--stone-50);
-    --bs-body-bg-variant: var(--stone-100);
-    --bs-muted: var(--stone-600);
+    /* ---------- semantic palette ---------- */
+    --ink: var(--stone-800);
+    --ink-bright: var(--stone-700);
+    --ink-deep: var(--stone-900);
+    --paper: var(--stone-50);
+    --paper-bright: white;
+    --paper-deep: var(--stone-100);
+    --muted-xbright: var(--stone-200);
+    --muted-bright: var(--stone-300);
+    --muted: var(--stone-400);
+    --muted-deep: var(--stone-500);
+    --muted-xdeep: var(--stone-600);
+    --primary-xbright: var(--amber-400);
+    --primary-bright: var(--amber-500);
+    --primary: var(--amber-600);
+    --primary-deep: var(--amber-700);
+
+    /* ---------- Bootstrap colors ---------- */
+    --bs-body-color: light-dark(var(--ink), var(--paper));
+    --bs-body-color-fade: light-dark(var(--ink-bright), var(--paper-deep));
+    --bs-body-color-emph: light-dark(var(--ink-deep), var(--paper-bright));
+    --bs-body-bg: light-dark(var(--paper), var(--ink));
+    --bs-body-bg-bright: light-dark(var(--paper-bright), var(--ink-bright));
+    --bs-body-bg-deep: light-dark(var(--paper-deep), var(--ink-deep));
+    --bs-muted: light-dark(var(--muted-xdeep), var(--muted-bright));
+    --bs-stroke: light-dark(var(--muted-deep), var(--muted));
+    --bs-stroke-muted: light-dark(var(--muted-xbright), var(--muted-xdeep));
+    --bs-primary: light-dark(var(--primary), var(--primary-bright));
+    --bs-primary-emph: light-dark(var(--primary-deep), var(--primary-xbright));
+    --bs-accent: light-dark(var(--primary-xbright), var(--primary-deep));
+
+    --bs-tertiary-bg: var(--bs-body-bg-deep);
     --bs-secondary-color: var(--bs-muted);
-    --bs-stroke: var(--stone-500);
-    --bs-stroke-muted: var(--stone-200);
-    --bs-primary: var(--amber-600);
-    --bs-primary-dark: var(--amber-700);
-    --bs-accent: var(--amber-400);
-    --bs-code-color: var(--bs-primary-dark);
+    --bs-border-color: var(--bs-stroke);
+    --bs-code-color: var(--bs-primary-emph);
 
     /* ---------- Swiper theme colors ---------- */
     --swiper-theme-color: var(--bs-primary);
@@ -60,13 +83,44 @@
     --transition: .15s ease;
 }
 
+
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+    }
+}
+
+@media (prefers-contrast: more) {
+    :root {
+        --bs-body-color: light-dark(var(--stone-950), var(--stone-50));
+        --bs-body-color-fade: light-dark(var(--stone-900), var(--stone-100));
+        --bs-body-color-emph: light-dark(black, white);
+        --bs-body-bg: light-dark(var(--stone-50), var(--stone-950));
+        --bs-body-bg-bright: light-dark(white, var(--stone-900));
+        --bs-body-bg-deep: light-dark(var(--stone-100), black);
+        --bs-muted: light-dark(var(--stone-700), var(--stone-200));
+        --bs-stroke: light-dark(var(--stone-600), var(--stone-300));
+        --bs-stroke-muted: light-dark(var(--stone-500), var(--stone-400));
+        --bs-primary: light-dark(var(--amber-700), var(--amber-300));
+        --bs-primary-emph: light-dark(var(--amber-800), var(--amber-200));
+    }
+}
+
 body {
     font-optical-sizing: auto;
 }
 
 /* ---------- base ---------- */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--bs-body-color-dark);
+    color: var(--bs-body-color-emph);
 }
 
 /* ---------- buttons ---------- */
@@ -87,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:focus-visible {
-    outline: 3px solid var(--bs-primary-dark);
+    outline: 3px solid var(--bs-primary-emph);
     outline-offset: 2px;
 }
 
@@ -99,21 +153,10 @@ h1, h2, h3, h4, h5, h6 {
 .btn-tactile {
     --bs-btn-bg: var(--bs-body-color);
     --bs-btn-active-bg: var(--bs-body-color);
-    --bs-btn-hover-bg: var(--bs-body-color-light);
+    --bs-btn-hover-bg: var(--bs-body-color-fade);
     --bs-btn-color: var(--bs-body-bg);
     --bs-btn-active-color: var(--bs-body-bg);
-    --bs-btn-hover-color: white;
-    --bs-btn-border-color: var(--bs-muted);
-    --bs-btn-active-border-color: var(--bs-muted);
-}
-
-.btn-tactile-light {
-    --bs-btn-bg: var(--bs-body-color-light);
-    --bs-btn-active-bg: var(--bs-body-color-light);
-    --bs-btn-hover-bg: var(--bs-muted);
-    --bs-btn-color: var(--bs-body-bg);
-    --bs-btn-active-color: var(--bs-body-bg);
-    --bs-btn-hover-color: white;
+    --bs-btn-hover-color: var(--bs-body-bg-bright);
     --bs-btn-border-color: var(--bs-muted);
     --bs-btn-active-border-color: var(--bs-muted);
 }
@@ -129,8 +172,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-square {
-    --bs-btn-padding-x: .7rem;
-    --bs-btn-padding-y: .3rem;
+    --bs-btn-padding-x: .75rem;
+    --bs-btn-padding-y: .35rem;
     --bs-btn-border-radius: var(--bs-border-radius);
 }
 
@@ -167,7 +210,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .author-link:hover,
 .author-link:focus {
-    color: var(--bs-primary-dark);
+    color: var(--bs-primary-emph);
 }
 
 .authors sup {
@@ -197,7 +240,9 @@ section {
 }
 
 section + section {
-    border-top: 1px solid var(--bs-stroke-muted);
+    border-top-style: solid;
+    border-width: var(--bs-border-width);
+    border-color: var(--bs-stroke-muted);
 }
 
 .section-title {
@@ -238,7 +283,7 @@ section + section {
 }
 
 .swiper-pagination-bullet:focus-visible {
-    outline: 3px solid var(--bs-primary-dark);
+    outline: 3px solid var(--bs-primary-emph);
     outline-offset: 3px;
 }
 
@@ -252,7 +297,8 @@ section + section {
     width: 100%;
     height: 340px;
     object-fit: contain;
-    background-color: #252530;
+    background-color: var(--bs-body-bg);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.05);
     --poster-color: transparent;
 }
 
@@ -279,8 +325,10 @@ section + section {
 /* pipeline steps */
 
 .pipeline-step {
-    background: white;
-    border: 1px solid var(--bs-stroke-muted);
+    background: var(--bs-body-bg-bright);
+    border-style: solid;
+    border-width: var(--bs-border-width);
+    border-color: var(--bs-stroke-muted);
     border-radius: var(--bs-border-radius);
     box-shadow: var(--bs-box-shadow-sm);
     padding: 1.5rem;
@@ -296,14 +344,14 @@ section + section {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background: var(--bs-primary-dark);
-    color: white;
+    background: var(--bs-primary-emph);
+    color: var(--bs-body-bg);
     font-weight: 700;
 }
 
 .pipeline-step .step-heading {
     font-weight: 700;
-    color: var(--bs-body-color-dark);
+    color: var(--bs-body-color-emph);
 }
 
 /* clickable tab states (synced to method video) */
@@ -319,7 +367,7 @@ section + section {
 }
 
 .pipeline-step[role="button"]:focus-visible {
-    outline: 3px solid var(--bs-primary-dark);
+    outline: 3px solid var(--bs-primary-emph);
     outline-offset: 2px;
 }
 
@@ -348,19 +396,10 @@ section + section {
 }
 
 /* ---------- bibtex ---------- */
-.invert-colors {
-    background: var(--bs-body-color);
-    color: var(--bs-body-bg);
-}
-
 .copy-btn {
     position: absolute;
     top: .75rem;
     right: .75rem;
-}
-
-.copy-btn:focus-visible {
-    outline-color: var(--bs-primary);
 }
 
 /* ---------- utility ---------- */
@@ -369,8 +408,12 @@ section + section {
     color: var(--bs-muted);
 }
 
-.bg-body-variant {
-    background: var(--bs-body-bg-variant);
+.bg-body-bright {
+    background: var(--bs-body-bg-bright);
+}
+
+.bg-body-deep {
+    background: var(--bs-body-bg-deep);
 }
 
 .subtle-gradient {
@@ -382,12 +425,12 @@ section + section {
 }
 
 .border-muted {
-    border-color: var(--bs-stroke-muted);
+    border-color: var(--bs-stroke-muted) !important;
 }
 
 /* ---- Accessible 3D model: keyboard hint + text description ---- */
 model-viewer:focus-visible {
-    outline: 3px solid var(--bs-primary-dark);
+    outline: 3px solid var(--bs-primary-emph);
     outline-offset: 2px;
 }
 

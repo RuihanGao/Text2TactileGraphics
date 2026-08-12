@@ -122,8 +122,8 @@
 <section id="teaser" aria-labelledby="teaser-title">
     <div class="container">
         <h2 id="teaser-title" class="visually-hidden">TLDR</h2>
-        <p class="text-center fs-5 mb-4">
-            <span class="fw-bold">TL;DR:</span>
+        <p class="text-center fs-5 mb-4 lead">
+            <span class="fw-semibold">TL;DR:</span>
             We develop Text2TactileGraphics, the first generative system to bring generative visual models from
             digital world to fingertips, turning text prompts into 3D-printable touchable
             graphics for blind and low-vision accessibility.
@@ -166,7 +166,7 @@
 <!-- ============================================================
      RESULTS GALLERY
      ============================================================ -->
-<section id="gallery" class="gallery-section bg-body-variant shadow-lg" aria-labelledby="gallery-title">
+<section id="gallery" class="gallery-section bg-body-deep shadow-lg" aria-labelledby="gallery-title">
     <div class="container">
         <h2 id="gallery-title" class="section-title">Gallery</h2>
         <p>
@@ -184,7 +184,7 @@
             (<code>.stl</code>, right).
         </p>
         <template id="gallery-slide-template">
-            <div class="swiper-slide bg-white rounded border border-muted">
+            <div class="swiper-slide bg-body-bright rounded border border-muted">
                 <div class="row p-4 g-4">
                     <div class="col-12 col-md-6 text-center">
                         <figure class="gallery-figure mb-0">
@@ -322,7 +322,7 @@
 <!-- ============================================================
      ACKNOWLEDGMENT
      ============================================================ -->
-<section id="acknowledgment" class="bg-body-variant" aria-labelledby="acknowledgment-title">
+<section id="acknowledgment" class="bg-body-deep" aria-labelledby="acknowledgment-title">
     <div class="container">
         <h2 id="acknowledgment-title" class="section-title">Acknowledgment</h2>
         <p class="small">
@@ -346,17 +346,19 @@
 <section id="citation" aria-labelledby="citation-title">
     <div class="container">
         <h2 id="citation-title" class="section-title">BibTex</h2>
-        <div class="position-relative invert-colors rounded font-monospace small p-3">
-            <button class="btn btn-square btn-tactile-light copy-btn" onclick="copyBibtex()" id="copy-btn"
+        <div class="position-relative rounded bg-body-bright border border-muted p-3">
+            <button class="btn btn-square btn-tactile-outline copy-btn" onclick="copyBibtex()" id="copy-btn"
                     aria-live="polite">
                 <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
             </button>
-            <pre class="mb-0" id="bibtex-content">@inproceedings{gao2026text2tactilegraphics,
+            <div class="font-monospace small">
+                <pre class="mb-0" id="bibtex-content">@inproceedings{gao2026text2tactilegraphics,
   title     = {Text-based Tactile Graphics Generation for the Visually Impaired},
   author    = {Gao, Ruihan and Shin, Joonghyuk and Pun, Ava and Park, Jaesik and Yuan, Wenzhen and Zhu, Jun-Yan},
   booktitle = {European Conference on Computer Vision (ECCV)},
   year      = {2026}
 }</pre>
+            </div>
         </div>
     </div>
 </section>
