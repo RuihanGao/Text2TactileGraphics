@@ -187,38 +187,39 @@
             <div class="swiper-slide bg-white rounded border border-muted">
                 <div class="row p-4 g-4">
                     <div class="col-12 col-md-6 text-center">
-                        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                            <p class="gallery-pane-label mb-0">Generated mesh</p>
-                            <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-glb"
-                               download title="Download interactive 3D model (.glb)"
-                               aria-label="Download interactive 3D model, GLB file">
-                                <i class="bi bi-download" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <model-viewer
-                                class="gallery-media rounded"
-                                tabindex="0"
-                                role="img"
-                                aria-roledescription="interactive 3D model"
-                                shadow-intensity="0.6"
-                                shadow-softness="0.5"
-                                exposure="0.6"
-                                environment-image="neutral"
-                                camera-controls
-                                touch-action="pan-y"
-                                auto-rotate>
-                        </model-viewer>
+                        <figure class="gallery-figure mb-0">
+                            <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                                <figcaption class="gallery-pane-label mb-0">Generated mesh</figcaption>
+                                <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-glb"
+                                   download aria-label="Download interactive 3D model">
+                                    <i class="bi bi-download" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <model-viewer
+                                    class="gallery-media rounded"
+                                    tabindex="0"
+                                    aria-roledescription="interactive 3D model"
+                                    shadow-intensity="0.6"
+                                    shadow-softness="0.5"
+                                    exposure="0.6"
+                                    environment-image="neutral"
+                                    camera-controls
+                                    touch-action="pan-y"
+                                    auto-rotate>
+                            </model-viewer>
+                        </figure>
                     </div>
                     <div class="col-12 col-md-6 text-center">
-                        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                            <p class="gallery-pane-label mb-0">3D-printed result</p>
-                            <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-stl"
-                               download title="Download 3D-print-ready mesh (.stl)"
-                               aria-label="Download 3D-print-ready mesh, STL file">
-                                <i class="bi bi-download" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy">
+                        <figure class="gallery-figure mb-0">
+                            <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                                <figcaption class="gallery-pane-label mb-0">3D-printed result</figcaption>
+                                <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-stl"
+                                   download aria-label="Download 3D-print-ready mesh">
+                                    <i class="bi bi-download" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy">
+                        </figure>
                     </div>
                 </div>
                 <div class="text-center p-3 border-top border-muted">
