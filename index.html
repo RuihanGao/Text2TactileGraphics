@@ -122,13 +122,14 @@
      ============================================================ -->
 <section id="teaser" aria-labelledby="teaser-title">
     <div class="container">
-        <h2 id="teaser-title" class="visually-hidden">TLDR</h2>
-        <p class="text-center fs-5 mb-4 lead">
-            <span class="fw-semibold">TL;DR:</span>
-            We develop Text2TactileGraphics, the first generative system to bring generative visual models from
-            the digital world to your fingertips, turning text prompts into 3D-printable touchable
-            graphics for blind and low-vision accessibility.
-        </p>
+        <div class="bg-body-bright p-4 rounded shadow border border-muted text-center max-w-reading mx-auto mb-5">
+            <h2 id="teaser-title" class="fw-bold">TL;DR</h2>
+            <p class="mb-0 lead">
+                We develop <strong class="fw-semibold">Text2TactileGraphics</strong>, the first generative system to bring
+                generative visual models from the digital world to your fingertips, turning text prompts
+                into 3D-printable touchable graphics for blind and low-vision accessibility.
+            </p>
+        </div>
         <div class="video-container rounded shadow-lg">
             <iframe src="https://www.youtube.com/embed/tKSZLxfZoPY"
                     title="Text2TactileGraphics teaser video" allowfullscreen></iframe>
@@ -141,26 +142,28 @@
      ============================================================ -->
 <section id="abstract" aria-labelledby="abstract-title">
     <div class="container">
-        <h2 id="abstract-title" class="section-title">Abstract</h2>
-        <p>
-            Tactile graphics are a primary medium for blind and low-vision (BLV) individuals
-            to access non-textual information. However, they are difficult to scale or personalize.
-            While recent generative models have revolutionized visual content creation, they are
-            optimized for screen-based visual realism and fail to satisfy the haptic perceptual and
-            physical fabrication constraints required for touch. We present the first integrated
-            generative system that produces fabrication-ready 2.5D tactile graphics directly from
-            natural language prompts, jointly encoding global base geometry, fine-grained tactile
-            surface textures, and standard-compliant braille within a unified 3D-printable
-            representation. Our approach introduces fabrication-aware techniques, including
-            template-guided relief generation, a fast diffusion-based text-to-texture module for
-            high-resolution tileable normal maps, and strict base flattening to ensure tactile
-            readability and printability, while supporting both automatic generation and interactive
-            texture control. Extensive evaluations, together with in-person user studies with BLV
-            participants and blindfolded sighted participants using physically 3D-printed outputs,
-            show that participants consistently prefer our results over baselines. By extending
-            generative graphics beyond screens to touchable reliefs, our work broadens access to
-            generative AI for the BLV community and beyond.
-        </p>
+        <div class="max-w-reading mx-auto">
+            <h2 id="abstract-title" class="section-title">Abstract</h2>
+            <p>
+                Tactile graphics are a primary medium for blind and low-vision (BLV) individuals
+                to access non-textual information. However, they are difficult to scale or personalize.
+                While recent generative models have revolutionized visual content creation, they are
+                optimized for screen-based visual realism and fail to satisfy the haptic perceptual and
+                physical fabrication constraints required for touch. We present the first integrated
+                generative system that produces fabrication-ready 2.5D tactile graphics directly from
+                natural language prompts, jointly encoding global base geometry, fine-grained tactile
+                surface textures, and standard-compliant braille within a unified 3D-printable
+                representation. Our approach introduces fabrication-aware techniques, including
+                template-guided relief generation, a fast diffusion-based text-to-texture module for
+                high-resolution tileable normal maps, and strict base flattening to ensure tactile
+                readability and printability, while supporting both automatic generation and interactive
+                texture control. Extensive evaluations, together with in-person user studies with BLV
+                participants and blindfolded sighted participants using physically 3D-printed outputs,
+                show that participants consistently prefer our results over baselines. By extending
+                generative graphics beyond screens to touchable reliefs, our work broadens access to
+                generative AI for the BLV community and beyond.
+            </p>
+        </div>
     </div>
 </section>
 
@@ -189,13 +192,13 @@
                 <div class="row p-4 g-4">
                     <div class="col-12 col-md-6 text-center">
                         <figure class="gallery-figure mb-0">
-                            <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                                <figcaption class="gallery-pane-label mb-0">Generated mesh</figcaption>
+                            <figcaption class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                                <div class="gallery-pane-label mb-0">Generated mesh</div>
                                 <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-glb"
                                    download aria-label="Download interactive 3D model">
                                     <i class="bi bi-download" aria-hidden="true"></i>
                                 </a>
-                            </div>
+                            </figcaption>
                             <model-viewer
                                     class="gallery-media rounded"
                                     tabindex="0"
@@ -212,13 +215,13 @@
                     </div>
                     <div class="col-12 col-md-6 text-center">
                         <figure class="gallery-figure mb-0">
-                            <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                                <figcaption class="gallery-pane-label mb-0">3D-printed result</figcaption>
+                            <figcaption class="d-flex align-items-center justify-content-center gap-2 mb-1">
+                                <div class="gallery-pane-label mb-0">3D-printed result</div>
                                 <a class="btn btn-tactile-outline btn-circle btn-sm gallery-dl" data-field="dl-stl"
                                    download aria-label="Download 3D-print-ready mesh">
                                     <i class="bi bi-download" aria-hidden="true"></i>
                                 </a>
-                            </div>
+                            </figcaption>
                             <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy">
                         </figure>
                     </div>
@@ -233,7 +236,7 @@
         <div class="swiper" id="gallery-wrapper">
             <div class="swiper-wrapper" id="gallery-track"></div>
         </div>
-        <div class="d-flex justify-content-between mt-3">
+        <div class="d-flex justify-content-between">
             <div id="gallery-counter" class="text-muted fw-semibold fs-5" style="width:96px"
                  role="status" aria-live="polite" aria-atomic="true">
                 <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
@@ -266,47 +269,43 @@
         <div class="row row-cols-2 row-cols-md-4 g-3" id="method-tabs"
              role="group" aria-label="Method pipeline steps. Activating a step jumps the video to that stage.">
             <div class="col">
-                <div class="pipeline-step" data-start="11" role="button" tabindex="0"
-                     aria-label="Jump video to Base Geometry Generation">
-                    <div class="step-num mb-2">1</div>
-                    <p class="step-heading mb-2">Base Geometry Generation</p>
-                    <p class="small text-muted mb-0">
+                <button class="pipeline-step" data-start="11" type="button" aria-label="Jump video to Base Geometry Generation">
+                    <span class="step-num mb-2">1</span>
+                    <span class="step-heading mb-2">Base Geometry Generation</span>
+                    <span class="small text-muted mb-0">
                         We first synthesize a base image constrained by a plate template, and lift the image to
                         2.5D base relief via monocular geometry estimation.
-                    </p>
-                </div>
+                    </span>
+                </button>
             </div>
             <div class="col">
-                <div class="pipeline-step" data-start="27" role="button" tabindex="0"
-                     aria-label="Jump video to Tactile Texture Generation">
-                    <div class="step-num mb-2">2</div>
-                    <p class="step-heading mb-2">Tactile Texture Generation</p>
-                    <p class="small text-muted mb-0">
+                <button class="pipeline-step" data-start="27" type="button" aria-label="Jump video to Tactile Texture Generation">
+                    <span class="step-num mb-2">2</span>
+                    <span class="step-heading mb-2">Tactile Texture Generation</span>
+                    <span class="small text-muted mb-0">
                         A tactile texture module produces tileable normal maps from text prompts or tactile
                         sensor captures, which can be assigned to object parts through text or user interaction.
-                    </p>
-                </div>
+                    </span>
+                </button>
             </div>
             <div class="col">
-                <div class="pipeline-step" data-start="52" role="button" tabindex="0"
-                     aria-label="Jump video to Integration and Polishing">
-                    <div class="step-num mb-2">3</div>
-                    <p class="step-heading mb-2">Integration &amp; Polishing</p>
-                    <p class="small text-muted mb-0">
+                <button class="pipeline-step" data-start="52" type="button" aria-label="Jump video to Integration and Polishing">
+                    <span class="step-num mb-2">3</span>
+                    <span class="step-heading mb-2">Integration &amp; Polishing</span>
+                    <span class="small text-muted mb-0">
                         The textures are integrated as geometric deformation on the base relief, followed by
                         fabrication-aware base flattening and braille generation.
-                    </p>
-                </div>
+                    </span>
+                </button>
             </div>
             <div class="col">
-                <div class="pipeline-step" data-start="87" role="button" tabindex="0"
-                     aria-label="Jump video to Physical Fabrication">
-                    <div class="step-num mb-2">4</div>
-                    <p class="step-heading mb-2">Physical Fabrication</p>
-                    <p class="small text-muted mb-0">
+                <button class="pipeline-step" data-start="87" type="button" aria-label="Jump video to Physical Fabrication">
+                    <span class="step-num mb-2">4</span>
+                    <span class="step-heading mb-2">Physical Fabrication</span>
+                    <span class="small text-muted mb-0">
                         The resulting watertight mesh is fabricated via SLA resin 3D printing.
-                    </p>
-                </div>
+                    </span>
+                </button>
             </div>
         </div>
 
@@ -325,19 +324,21 @@
      ============================================================ -->
 <section id="acknowledgment" class="bg-body-deep" aria-labelledby="acknowledgment-title">
     <div class="container">
-        <h2 id="acknowledgment-title" class="section-title">Acknowledgment</h2>
-        <p class="small">
-            We thank Amin Mirzaee, Maxwell Jones, and Nupur Kumari for their helpful comments and
-            discussion. We are also grateful to Sheng-Yu Wang for proofreading the draft.
-            We appreciate the generous help from the Library of Accessible Media for Pennsylvanians
-            (LAMP) and VisAbility Pittsburgh for recruiting blind and low-vision users for our
-            studies. The project is partially supported by the Amazon Faculty Research Award, Cisco
-            Research, Sloan Foundation, and the Packard Foundation. Ruihan Gao is supported by the
-            A*STAR National Science Scholarship (Ph.D.). Joonghyuk Shin and Jaesik Park were
-            supported by the IITP grant (No. RS-2021-II211343: Artificial Intelligence Graduate
-            School Program at Seoul National University, 10%) and NRF grant (No. RS-2024-00405857,
-            90%) funded by the Korea government (MSIT).
-        </p>
+        <div class="max-w-reading mx-auto">
+            <h2 id="acknowledgment-title" class="section-title">Acknowledgment</h2>
+            <p class="small">
+                We thank Amin Mirzaee, Maxwell Jones, and Nupur Kumari for their helpful comments and
+                discussion. We are also grateful to Sheng-Yu Wang for proofreading the draft.
+                We appreciate the generous help from the Library of Accessible Media for Pennsylvanians
+                (LAMP) and VisAbility Pittsburgh for recruiting blind and low-vision users for our
+                studies. The project is partially supported by the Amazon Faculty Research Award, Cisco
+                Research, Sloan Foundation, and the Packard Foundation. Ruihan Gao is supported by the
+                A*STAR National Science Scholarship (Ph.D.). Joonghyuk Shin and Jaesik Park were
+                supported by the IITP grant (No. RS-2021-II211343: Artificial Intelligence Graduate
+                School Program at Seoul National University, 10%) and NRF grant (No. RS-2024-00405857,
+                90%) funded by the Korea government (MSIT).
+            </p>
+        </div>
     </div>
 </section>
 
@@ -346,19 +347,21 @@
      ============================================================ -->
 <section id="citation" aria-labelledby="citation-title">
     <div class="container">
-        <h2 id="citation-title" class="section-title">BibTex</h2>
-        <div class="position-relative rounded bg-body-bright border border-muted p-3">
-            <button class="btn btn-square btn-tactile-outline copy-btn" onclick="copyBibtex()" id="copy-btn"
-                    aria-live="polite">
-                <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
-            </button>
-            <div class="font-monospace small">
-                <pre class="mb-0" id="bibtex-content">@inproceedings{gao2026text2tactilegraphics,
+        <div class="max-w-reading mx-auto">
+            <h2 id="citation-title" class="section-title">BibTeX</h2>
+            <div class="position-relative rounded bg-body-bright border border-muted p-3">
+                <button class="btn btn-square btn-tactile-outline copy-btn" onclick="copyBibtex()" id="copy-btn"
+                        aria-live="polite">
+                    <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
+                </button>
+                <div class="font-monospace small">
+                    <pre class="mb-0" id="bibtex-content">@inproceedings{gao2026text2tactilegraphics,
   title     = {Text-based Tactile Graphics Generation for the Visually Impaired},
   author    = {Gao, Ruihan and Shin, Joonghyuk and Pun, Ava and Park, Jaesik and Yuan, Wenzhen and Zhu, Jun-Yan},
   booktitle = {European Conference on Computer Vision (ECCV)},
   year      = {2026}
 }</pre>
+                </div>
             </div>
         </div>
     </div>

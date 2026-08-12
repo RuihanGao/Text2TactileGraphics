@@ -230,13 +230,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------- section generics ---------- */
 section {
-    padding: 4rem 0;
-}
-
-@media (max-width: 575px) {
-    section {
-        padding: 3rem 0;
-    }
+    padding: 3rem 0;
 }
 
 section + section {
@@ -325,6 +319,9 @@ section + section {
 /* pipeline steps */
 
 .pipeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: var(--bs-body-bg-bright);
     border-style: solid;
     border-width: var(--bs-border-width);
@@ -335,6 +332,10 @@ section + section {
     text-align: center;
     position: relative;
     height: 100%;
+}
+
+.pipeline-step > * {
+    display: block;
 }
 
 .pipeline-step .step-num {
@@ -355,24 +356,26 @@ section + section {
 }
 
 /* clickable tab states (synced to method video) */
-.pipeline-step[role="button"] {
+.pipeline-step {
     cursor: pointer;
     transition: border-color var(--transition), box-shadow var(--transition),
     transform var(--transition);
 }
 
-.pipeline-step[role="button"]:hover {
+.pipeline-step:hover {
     transform: translateY(-2px);
     box-shadow: var(--bs-box-shadow);
+    border-color: var(--bs-primary);
 }
 
-.pipeline-step[role="button"]:focus-visible {
+.pipeline-step:focus-visible {
     outline: 3px solid var(--bs-primary-emph);
     outline-offset: 2px;
 }
 
 .pipeline-step.active {
     border-color: var(--bs-primary);
+    /* using box-shadow for the border creates a growing-out transition effect */
     box-shadow: 0 0 0 2px var(--bs-primary), var(--bs-box-shadow);
 }
 
@@ -420,6 +423,7 @@ section + section {
     background: radial-gradient(ellipse at 50% 0%, rgb(from var(--bs-primary) r g b / 10%) 0%, transparent 75%);
 }
 
+/* Optimal reading width for accessibility */
 .max-w-reading {
     max-width: 720px;
 }
