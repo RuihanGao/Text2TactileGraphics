@@ -455,3 +455,11 @@ model-viewer:focus-visible {
 .skip-link:focus {
     transform: translate(-50%, 0);
 }
+
+/* ---------- prefers-reduced-motion adjustments ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .btn:hover, .btn:focus, .pipeline-step:hover,
+    .pipeline-step:focus {
+        transform: none !important;
+    }
+}
