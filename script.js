@@ -138,6 +138,32 @@
         dlStl.href = DATA_DIR + r.file + '.stl';
         dlStl.setAttribute('download', r.file + '.stl');
 
+        function formatBytes(bytes) {
+            if (!Number.isFinite(bytes) || bytes <= 0) return 'size unknown';
+            const units = ['B', 'KB', 'MB', 'GB'];
+            let size = bytes;
+            let unitIndex = 0;
+            while (size >= 1024 && unitIndex < units.length - 1) {
+                size /= 1024;
+                unitIndex += 1;
+            }
+            return size.toFixed(size >= 10 || unitIndex === 0 ? 0 : 1) + ' ' + units[unitIndex];
+        }
+
+        function setDownloadLabel(link, baseLabel, fileUrl) {
+            fetch(fileUrl, {method: 'HEAD', cache: 'force-cache'})
+                .then(function (res) {
+                    const bytes = Number(res.headers.get('Content-Length') || 0);
+                    link.setAttribute('aria-label', baseLabel + ' for ' + r.object + ' (' + formatBytes(bytes) + ')');
+                })
+                .catch(function () {
+                    link.setAttribute('aria-label', baseLabel + ' for ' + r.object);
+                });
+        }
+
+        setDownloadLabel(dlGlb, 'Download interactive 3D model', dlGlb.href);
+        setDownloadLabel(dlStl, 'Download 3D-print-ready mesh', dlStl.href);
+
         slide.querySelector('[data-field="prompt"]').textContent = prompt;
 
         track.appendChild(slide);
