@@ -163,6 +163,19 @@
         loadNearby(swiper);
     }
 
+    /* Keep off-screen slides out of the tab order (`inert`) and accessibility tree (`aria-hidden`). */
+    function updateSlideVisibility(swiper) {
+        swiper.slides.forEach(function (slide, i) {
+            const hidden = (i !== swiper.activeIndex);
+            slide.inert = hidden;
+            if (hidden) {
+                slide.setAttribute('aria-hidden', 'true');
+            } else {
+                slide.removeAttribute('aria-hidden');
+            }
+        });
+    }
+
     /* Initialize Swiper */
     new Swiper('#gallery-wrapper', {
         a11y: {
@@ -192,8 +205,14 @@
             clickable: true,
         },
         on: {
-            init: updateCounter,
-            slideChange: updateCounter,
+            init: function (swiper) {
+                updateCounter(swiper);
+                updateSlideVisibility(swiper);
+            },
+            slideChange: function (swiper) {
+                updateCounter(swiper);
+                updateSlideVisibility(swiper);
+            },
         },
     });
 })();
