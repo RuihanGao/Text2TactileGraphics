@@ -74,6 +74,9 @@
     --bs-font-sans-serif: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --bs-font-monospace: "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
+    /* ---------- borders ---------- */
+    --bs-border-width: 2px;
+
     /* ---------- shadows ---------- */
     --bs-box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     --bs-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
@@ -119,6 +122,10 @@ body {
 }
 
 /* ---------- base ---------- */
+html {
+    font-size: 20px;  /* increase base font size for better readability */
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--bs-body-color-emph);
 }
@@ -248,9 +255,9 @@ section + section {
     content: '';
     display: block;
     width: 3rem;
-    height: 2px;
+    height: 3px;
     background: var(--bs-primary);
-    border-radius: 2px;
+    border-radius: 3px;
     margin-top: .4rem;
 }
 
@@ -425,7 +432,7 @@ section + section {
 
 /* Optimal reading width for accessibility */
 .max-w-reading {
-    max-width: 720px;
+    max-width: 60ch;
 }
 
 .border-muted {
