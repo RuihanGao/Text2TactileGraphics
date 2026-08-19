@@ -138,7 +138,7 @@
 
         const photo = slide.querySelector('[data-field="photo"]');
         photo.src = DATA_DIR + r.file + '.jpeg';
-        photo.alt = `3D-printed result of ${r.object} generated from the prompt: ${r.prompt}.`;
+        photo.alt = `3D-printed result of ${r.object} generated from the prompt: "${r.prompt}"`;
 
         // Download links: left -> .glb (interactive model), right -> .stl (print-ready).
         const dlGlb = slide.querySelector('[data-field="dl-glb"]');
