@@ -285,7 +285,13 @@
 
     function setActive(idx) {
         tabs.forEach(function (el, i) {
-            el.classList.toggle('active', i === idx);
+            const active = (i === idx);
+            el.classList.toggle('active', active);
+            if (active) {
+                el.setAttribute('aria-current', 'true');
+            } else {
+                el.removeAttribute('aria-current');
+            }
         });
     }
 
