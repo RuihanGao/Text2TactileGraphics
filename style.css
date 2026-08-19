@@ -1,7 +1,3 @@
-/* ============================================================
-   Text2TactileGraphics Project Page
-   ============================================================ */
-
 :root {
     color-scheme: light dark;
 
@@ -103,6 +99,7 @@
 
 body {
     font-optical-sizing: auto;
+    overflow-wrap: break-word;
 }
 
 /* ---------- base ---------- */
@@ -185,6 +182,20 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 
+/* ---------- skip link ---------- */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -110%);
+    z-index: 1080;
+    border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+}
+
+.skip-link:focus {
+    transform: translate(-50%, 0);
+}
+
 /* ---------- hero ---------- */
 .hero-heading {
     font-weight: 800;
@@ -246,6 +257,7 @@ section + section {
 }
 
 /* ---------- gallery ---------- */
+
 .swiper-pagination {
     width: auto !important;
 }
@@ -307,7 +319,16 @@ section + section {
     content: '\201D';
 }
 
-/* pipeline steps */
+model-viewer:focus-visible {
+    outline: 3px solid var(--bs-primary-emph);
+    outline-offset: 2px;
+}
+
+#gallery kbd {
+    padding: 0.1em 0.4em;
+}
+
+/* ---------- method ---------- */
 
 .pipeline-step {
     display: flex;
@@ -389,11 +410,12 @@ section + section {
     border: 0;
 }
 
-/* ---------- bibtex ---------- */
-.copy-btn {
-    position: absolute;
-    top: .75rem;
-    right: .75rem;
+/* ---------- prefers-reduced-motion adjustments ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .btn:hover, .btn:focus, .pipeline-step:hover,
+    .pipeline-step:focus {
+        transform: none !important;
+    }
 }
 
 /* ---------- utility ---------- */
@@ -423,34 +445,6 @@ section + section {
     border-color: var(--bs-stroke-muted) !important;
 }
 
-/* ---- Accessible 3D model: keyboard hint + text description ---- */
-model-viewer:focus-visible {
-    outline: 3px solid var(--bs-primary-emph);
-    outline-offset: 2px;
-}
-
-#gallery kbd {
-    padding: 0.1em 0.4em;
-}
-
-/* ---------- skip link ---------- */
-.skip-link {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -110%);
-    z-index: 1080;
-    border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
-}
-
-.skip-link:focus {
-    transform: translate(-50%, 0);
-}
-
-/* ---------- prefers-reduced-motion adjustments ---------- */
-@media (prefers-reduced-motion: reduce) {
-    .btn:hover, .btn:focus, .pipeline-step:hover,
-    .pipeline-step:focus {
-        transform: none !important;
-    }
+.whitespace-pre-wrap {
+    white-space: pre-wrap;
 }
