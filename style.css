@@ -58,7 +58,6 @@
     --bs-stroke-muted: light-dark(var(--muted-xbright), var(--muted-xdeep));
     --bs-primary: light-dark(var(--primary), var(--primary-bright));
     --bs-primary-emph: light-dark(var(--primary-deep), var(--primary-xbright));
-    --bs-accent: light-dark(var(--primary-xbright), var(--primary-deep));
 
     --bs-tertiary-bg: var(--bs-body-bg-deep);
     --bs-secondary-color: var(--bs-muted);
@@ -84,21 +83,6 @@
 
     /* ---------- transitions ---------- */
     --transition: .15s ease;
-}
-
-
-html[data-theme="light"] {
-    color-scheme: light;
-}
-
-html[data-theme="dark"] {
-    color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-        color-scheme: dark;
-    }
 }
 
 @media (prefers-contrast: more) {
