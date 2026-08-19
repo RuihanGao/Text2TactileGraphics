@@ -2,6 +2,7 @@
 .idea
 *.un~
 node_modules/
+__pycache__/
 
 many_people_zoom_generated.mp4
 zoom-out_collection/
