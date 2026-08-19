@@ -9,24 +9,18 @@ export default [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "script",
+      sourceType: "module",
       globals: {
         ...globals.browser,
         // Loaded from CDN in index.html
         Swiper: "readonly",
         YT: "readonly",
-        gtag: "readonly",
-        dataLayer: "readonly",
       },
     },
   },
   {
-    // This config file is the only ES module in the repo.
     files: ["eslint.config.js"],
-    languageOptions: {
-      sourceType: "module",
-      globals: globals.node,
-    },
+    languageOptions: { globals: globals.node },
   },
   prettier,
   includeGitignore(),
