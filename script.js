@@ -5,8 +5,11 @@
     /* ---- Gallery data (file -> baseline prompt, from data/gallery_ours/prompts.xlsx) ---- */
     const DATA_DIR = 'data/gallery_ours/';
 
+    const reduceMotion = !!(window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
     // Stop autorotation when reduced-motion is requested
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reduceMotion) {
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('model-viewer[auto-rotate]').forEach(function (mv) { mv.removeAttribute('auto-rotate'); });
         });
@@ -216,7 +219,7 @@
     }
 
     /* Initialize Swiper */
-    new Swiper('#gallery-wrapper', {
+    const swiper = new Swiper('#gallery-wrapper', {
         a11y: {
             enabled: true,
             containerRoleDescriptionMessage: 'carousel',
@@ -234,7 +237,9 @@
         // let model-viewer's own camera-controls handle rotate/zoom.
         noSwiping: true,
         noSwipingSelector: 'model-viewer',
-        keyboard: {enabled: true},
+        autoHeight: true,
+        speed: reduceMotion ? 0 : 300,
+        keyboard: {enabled: false}, // manually enabled below
         navigation: {
             nextEl: '#gallery-next',
             prevEl: '#gallery-prev',
@@ -253,6 +258,13 @@
                 updateSlideVisibility(swiper);
             },
         },
+    });
+
+    // Manually enable keyboard shortcuts only when gallery is focused
+    const gallery = document.getElementById('gallery');
+    gallery.addEventListener('focusin', function () { swiper.keyboard.enable(); });
+    gallery.addEventListener('focusout', function (e) {
+        if (!gallery.contains(e.relatedTarget)) swiper.keyboard.disable();
     });
 })();
 
