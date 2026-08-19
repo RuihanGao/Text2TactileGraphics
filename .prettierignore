@@ -1,10 +1,10 @@
-.DS_Store
-.idea
-*.un~
 node_modules/
+package-lock.json
 
-many_people_zoom_generated.mp4
+data/
+tools/
 zoom-out_collection/
+zoom-out_collection_cropped/
 
 .claude/
 .playwright-mcp/

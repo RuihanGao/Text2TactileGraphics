@@ -1,0 +1,27 @@
+{
+  "name": "text2tactilegraphics-site",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev tooling only. The site itself has no build step; runtime dependencies are loaded from CDNs in index.html.",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm run check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-flat-gitignore": "^2.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "prettier": "^3.9.6",
+    "simple-git-hooks": "^2.13.1"
+  }
+}
