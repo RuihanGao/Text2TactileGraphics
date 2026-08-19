@@ -117,7 +117,7 @@
     /* Build slides from <template> */
     const slideTemplate = document.getElementById('gallery-slide-template');
 
-    results.forEach(function (r, idx) {
+    results.forEach(function (r) {
         const slide = slideTemplate.content.firstElementChild.cloneNode(true);
         // Display prompt: all lowercase, periods -> commas, collapse double
         // spaces, strip trailing comma/space.
@@ -372,13 +372,33 @@
 
 /* ---- BibTeX copy ---- */
 function copyBibtex() {
-    const text = document.getElementById('bibtex-content').textContent;
-    navigator.clipboard.writeText(text).then(function () {
-        const btn = document.getElementById('copy-btn');
-        btn.innerHTML = '<i class="bi bi-check-lg me-1" aria-hidden="true"></i> Copied!';
+    const pre = document.getElementById('bibtex-content');
+    const btn = document.getElementById('copy-btn');
+
+    function flash(icon, label) {
+        btn.innerHTML = '<i class="bi ' + icon + ' me-1" aria-hidden="true"></i> ' + label;
         setTimeout(function () {
             btn.innerHTML = '<i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy';
         }, 2000);
-    });
+    }
+
+    /* Fallback for insecure origins / denied clipboard permission: select the
+       citation so it can be copied manually, and say so. */
+    function selectForManualCopy() {
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        flash('bi-exclamation-triangle-fill', 'Press Ctrl/⌘+C');
+    }
+
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        selectForManualCopy();
+        return;
+    }
+    navigator.clipboard.writeText(pre.textContent).then(function () {
+        flash('bi-check-lg', 'Copied!');
+    }).catch(selectForManualCopy);
 }
 
