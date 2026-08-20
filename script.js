@@ -1,3 +1,6 @@
+import Swiper from "https://cdn.jsdelivr.net/npm/swiper@14/swiper-bundle.min.mjs";
+import copy from "https://cdn.jsdelivr.net/npm/copy-to-clipboard@4/+esm";
+
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ============================================================
@@ -252,7 +255,7 @@ const counterRegion = document.getElementById("gallery-counter");
 const slideTemplate = document.getElementById("gallery-slide-template");
 
 track.addEventListener("keydown", handleOrbitKey, true); // capture phase
-document.getElementById("gallery-total").textContent = results.length;
+document.getElementById("gallery-total").textContent = results.length.toString();
 
 for (const result of results) {
   const slide = slideTemplate.content.firstElementChild.cloneNode(true);
@@ -279,7 +282,7 @@ for (const result of results) {
 
 /* ---- Per-slide state, applied on init and on every slide change ---- */
 
-/* Load the .glb for the active slide and its immediate neighbours only. */
+/* Load the .glb for the active slide and its immediate neighbors only. */
 function loadNearby(activeIndex) {
   const viewers = track.querySelectorAll("model-viewer");
   for (const i of [activeIndex - 1, activeIndex, activeIndex + 1]) {
@@ -432,24 +435,17 @@ function flash(icon, label) {
   }, 2000);
 }
 
-/* Fallback for insecure origins / denied clipboard permission: select the
-   citation so it can be copied manually, and say so. */
+/* Select the citation so it can be copied manually, and say so. */
 function selectForManualCopy() {
   const range = document.createRange();
   range.selectNodeContents(bibtex);
   const selection = window.getSelection();
   selection.removeAllRanges();
   selection.addRange(range);
-  flash("bi-exclamation-triangle-fill", "Press Ctrl/⌘+C");
+  flash("bi-exclamation-triangle-fill", "Press Ctrl/\u2318+C");
 }
 
-copyBtn.addEventListener("click", () => {
-  if (!navigator.clipboard?.writeText) {
-    selectForManualCopy();
-    return;
-  }
-  navigator.clipboard
-    .writeText(bibtex.textContent)
-    .then(() => flash("bi-check-lg", "Copied!"))
-    .catch(selectForManualCopy);
+copyBtn.addEventListener("click", async () => {
+  if (await copy(bibtex.textContent)) flash("bi-check-lg", "Copied!");
+  else selectForManualCopy();
 });

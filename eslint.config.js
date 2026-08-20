@@ -8,19 +8,8 @@ export default [
   {
     files: ["**/*.js"],
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      globals: {
-        ...globals.browser,
-        // Loaded from CDN in index.html
-        Swiper: "readonly",
-        YT: "readonly",
-      },
+      globals: { ...globals.browser, YT: "readonly" },
     },
-  },
-  {
-    files: ["eslint.config.js"],
-    languageOptions: { globals: globals.node },
   },
   prettier,
   includeGitignore(),
