@@ -17,11 +17,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.0",
     "eslint-config-flat-gitignore": "^2.3.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.11.0",
     "prettier": "^3.9.6",
+    "prettier-plugin-bootstrap": "^0.4.0",
     "simple-git-hooks": "^2.13.1"
   }
 }

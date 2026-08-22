@@ -103,13 +103,13 @@
     <a href="#main" class="btn btn-tactile skip-link">Skip to main content</a>
 
     <!-- ===== HERO ===== -->
-    <header class="text-center subtle-gradient py-5">
+    <header class="py-5 text-center subtle-gradient">
       <div class="container pt-5">
-        <h1 class="hero-heading display-4 mb-3">
+        <h1 class="display-4 mb-3 hero-heading">
           Text-based Tactile Graphics Generation for the Visually Impaired
         </h1>
-        <p class="fs-5 fw-bold mb-3">ECCV 2026</p>
-        <div class="authors fs-4 fw-medium mb-2">
+        <p class="mb-3 fs-5 fw-bold">ECCV 2026</p>
+        <div class="mb-2 fs-4 fw-medium authors">
           <a
             href="https://ruihangao.github.io/"
             class="author-link"
@@ -153,7 +153,7 @@
             >Jun&#8209;Yan&nbsp;Zhu</a
           ><sup>1</sup>
         </div>
-        <div class="affiliations text-muted mb-4">
+        <div class="mb-4 text-muted affiliations">
           <span><sup>1</sup>Carnegie&nbsp;Mellon&nbsp;University</span>
           <span><sup>2</sup>Seoul&nbsp;National&nbsp;University</span>
           <span><sup>3</sup>University&nbsp;of&nbsp;Illinois&nbsp;Urbana-Champaign</span>
@@ -161,21 +161,21 @@
             ><small><sup>&#42;</sup>Equal contribution</small></span
           >
         </div>
-        <div class="max-w-reading mx-auto mb-4">
+        <div class="mx-auto mb-4 max-w-reading">
           <p class="lead text-center">
             <strong class="fw-semibold">Text2TactileGraphics</strong> is the first system to bring
             generative models from the digital world to your fingertips, turning text prompts into
             3D-printable touchable graphics for blind and low-vision accessibility.
           </p>
         </div>
-        <div class="d-flex flex-wrap gap-3 justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
           <a
             href="https://arxiv.org/abs/2607.22674"
             class="btn btn-tactile"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="bi bi-file-earmark-pdf-fill me-1" aria-hidden="true"></i> Paper
+            <i class="me-1 bi bi-file-earmark-pdf-fill" aria-hidden="true"></i> Paper
           </a>
           <a
             href="https://github.com/alex4727/Text2TactileGraphics"
@@ -183,7 +183,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="bi bi-github me-1" aria-hidden="true"></i> Code
+            <i class="me-1 bi bi-github" aria-hidden="true"></i> Code
           </a>
           <a
             href="https://huggingface.co/alex4727/text2tactilegraphics_ckpt"
@@ -191,7 +191,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="bi bi-box-seam-fill me-1" aria-hidden="true"></i> Models
+            <i class="me-1 bi bi-box-seam-fill" aria-hidden="true"></i> Models
           </a>
           <a
             href="https://huggingface.co/datasets/alex4727/text2tactilegraphics_data"
@@ -199,7 +199,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="bi bi-database-fill me-1" aria-hidden="true"></i> Data
+            <i class="me-1 bi bi-database-fill" aria-hidden="true"></i> Data
           </a>
         </div>
       </div>
@@ -210,7 +210,7 @@
       <section id="teaser" aria-labelledby="teaser-title">
         <div class="container">
           <h2 id="teaser-title" class="visually-hidden">Overview</h2>
-          <div class="video-container rounded shadow-lg">
+          <div class="shadow-lg rounded video-container">
             <iframe
               src="https://www.youtube.com/embed/tKSZLxfZoPY"
               title="Text2TactileGraphics teaser video"
@@ -223,7 +223,7 @@
       <!-- ===== ABSTRACT ===== -->
       <section id="abstract" aria-labelledby="abstract-title">
         <div class="container">
-          <div class="max-w-reading mx-auto">
+          <div class="mx-auto max-w-reading">
             <h2 id="abstract-title" class="section-title">Abstract</h2>
             <p>
               Tactile graphics are a primary medium for blind and low-vision (BLV) individuals to
@@ -249,11 +249,11 @@
       </section>
 
       <!-- ===== RESULTS GALLERY ===== -->
-      <section id="gallery" class="bg-body-deep shadow-lg" aria-labelledby="gallery-title">
+      <section id="gallery" class="shadow-lg bg-body-deep" aria-labelledby="gallery-title">
         <div class="container">
           <h2 id="gallery-title" class="section-title">Gallery</h2>
           <p>Our method produces fabrication-ready 2.5D tactile graphics from text prompts.</p>
-          <p class="small text-muted">
+          <p class="text-muted small">
             To view the interactive mesh, use mouse or keyboard control: <kbd>tab</kbd> to focus the
             model, then
             <kbd>&larr;</kbd>&thinsp;<kbd>&rarr;</kbd>&thinsp;<kbd>&uarr;</kbd>&thinsp;<kbd
@@ -261,18 +261,18 @@
             >
             rotate, <kbd>+</kbd>&thinsp;/&thinsp;<kbd>&minus;</kbd> zoom.
           </p>
-          <p class="small text-muted">
+          <p class="text-muted small">
             Use the <i class="bi bi-download" aria-hidden="true"></i> button to download the
             interactive 3D model (<code>.glb</code>, left) or the 3D-print-ready mesh
             (<code>.stl</code>, right).
           </p>
           <template id="gallery-slide-template">
-            <div class="swiper-slide bg-body-bright rounded border border-muted">
-              <div class="row p-4 g-4">
-                <div class="col-12 col-md-6 text-center">
+            <div class="border border-muted bg-body-bright rounded swiper-slide">
+              <div class="row g-4 p-4">
+                <div class="col-md-6 col-12 text-center">
                   <figure class="mb-0">
-                    <figcaption class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                      <div class="gallery-pane-label mb-0">Generated mesh</div>
+                    <figcaption class="d-flex justify-content-center align-items-center mb-1 gap-2">
+                      <div class="mb-0 gallery-pane-label">Generated mesh</div>
                       <a
                         class="btn btn-tactile-outline btn-circle btn-sm gallery-dl"
                         data-field="dl-glb"
@@ -283,7 +283,7 @@
                       </a>
                     </figcaption>
                     <model-viewer
-                      class="gallery-media rounded"
+                      class="rounded gallery-media"
                       tabindex="0"
                       aria-roledescription="interactive 3D model"
                       shadow-intensity="0.6"
@@ -297,10 +297,10 @@
                     </model-viewer>
                   </figure>
                 </div>
-                <div class="col-12 col-md-6 text-center">
+                <div class="col-md-6 col-12 text-center">
                   <figure class="mb-0">
-                    <figcaption class="d-flex align-items-center justify-content-center gap-2 mb-1">
-                      <div class="gallery-pane-label mb-0">3D-printed result</div>
+                    <figcaption class="d-flex justify-content-center align-items-center mb-1 gap-2">
+                      <div class="mb-0 gallery-pane-label">3D-printed result</div>
                       <a
                         class="btn btn-tactile-outline btn-circle btn-sm gallery-dl"
                         data-field="dl-stl"
@@ -310,24 +310,24 @@
                         <i class="bi bi-download" aria-hidden="true"></i>
                       </a>
                     </figcaption>
-                    <img data-field="photo" class="gallery-media rounded" alt="" loading="lazy" />
+                    <img data-field="photo" class="rounded gallery-media" alt="" loading="lazy" />
                   </figure>
                 </div>
               </div>
-              <div class="text-center p-3 border-top border-muted">
+              <div class="border-top border-muted p-3 text-center">
                 <span class="visually-hidden">Prompt: </span>
                 <span class="prompt" data-field="prompt"></span>
               </div>
             </div>
           </template>
 
-          <div class="swiper mb-3" id="gallery-wrapper">
+          <div class="mb-3 swiper" id="gallery-wrapper">
             <div class="swiper-wrapper" id="gallery-track"></div>
           </div>
           <div class="d-flex justify-content-between">
             <div
               id="gallery-counter"
-              class="gallery-nav-col text-muted fw-semibold fs-5"
+              class="fs-5 fw-semibold text-muted gallery-nav-col"
               role="status"
               aria-live="polite"
               aria-atomic="true"
@@ -335,10 +335,10 @@
               <span id="gallery-current">1</span> / <span id="gallery-total">16</span>
             </div>
             <div
-              class="swiper-pagination position-relative align-content-center"
+              class="position-relative align-content-center swiper-pagination"
               id="gallery-pagination"
             ></div>
-            <div class="gallery-nav-col d-flex gap-2 justify-content-end">
+            <div class="d-flex justify-content-end gap-2 gallery-nav-col">
               <button
                 id="gallery-prev"
                 class="btn btn-tactile-outline btn-circle fs-6"
@@ -374,9 +374,9 @@
           >
             <div class="col">
               <button class="pipeline-step" data-start="11" type="button">
-                <span class="step-num mb-2"><span class="visually-hidden">Step </span>1</span>
-                <span class="step-heading mb-2">Base Geometry Generation</span>
-                <span class="small text-muted mb-0">
+                <span class="mb-2 step-num"><span class="visually-hidden">Step </span>1</span>
+                <span class="mb-2 step-heading">Base Geometry Generation</span>
+                <span class="mb-0 text-muted small">
                   We first synthesize a base image constrained by a plate template, and lift the
                   image to 2.5D base relief via monocular geometry estimation.
                 </span>
@@ -384,9 +384,9 @@
             </div>
             <div class="col">
               <button class="pipeline-step" data-start="27" type="button">
-                <span class="step-num mb-2"><span class="visually-hidden">Step </span>2</span>
-                <span class="step-heading mb-2">Tactile Texture Generation</span>
-                <span class="small text-muted mb-0">
+                <span class="mb-2 step-num"><span class="visually-hidden">Step </span>2</span>
+                <span class="mb-2 step-heading">Tactile Texture Generation</span>
+                <span class="mb-0 text-muted small">
                   A tactile texture module produces tileable normal maps from text prompts or
                   tactile sensor captures, which can be assigned to object parts through text or
                   user interaction.
@@ -395,9 +395,9 @@
             </div>
             <div class="col">
               <button class="pipeline-step" data-start="52" type="button">
-                <span class="step-num mb-2"><span class="visually-hidden">Step </span>3</span>
-                <span class="step-heading mb-2">Integration &amp; Polishing</span>
-                <span class="small text-muted mb-0">
+                <span class="mb-2 step-num"><span class="visually-hidden">Step </span>3</span>
+                <span class="mb-2 step-heading">Integration &amp; Polishing</span>
+                <span class="mb-0 text-muted small">
                   The textures are integrated as geometric deformation on the base relief, followed
                   by fabrication-aware base flattening and braille generation.
                 </span>
@@ -405,20 +405,20 @@
             </div>
             <div class="col">
               <button class="pipeline-step" data-start="87" type="button">
-                <span class="step-num mb-2"><span class="visually-hidden">Step </span>4</span>
-                <span class="step-heading mb-2">Physical Fabrication</span>
-                <span class="small text-muted mb-0">
+                <span class="mb-2 step-num"><span class="visually-hidden">Step </span>4</span>
+                <span class="mb-2 step-heading">Physical Fabrication</span>
+                <span class="mb-0 text-muted small">
                   The resulting watertight mesh is fabricated via SLA resin 3D printing.
                 </span>
               </button>
             </div>
           </div>
 
-          <p class="small text-muted mt-3 mb-0">
+          <p class="mt-3 mb-0 text-muted small">
             Click a step above to jump the video to that stage.
           </p>
           <div
-            class="video-container rounded shadow-lg mt-5"
+            class="shadow-lg mt-5 rounded video-container"
             role="region"
             aria-label="Method walkthrough video"
           >
@@ -430,7 +430,7 @@
       <!-- ===== ACKNOWLEDGMENT ===== -->
       <section id="acknowledgment" aria-labelledby="acknowledgment-title">
         <div class="container">
-          <div class="max-w-reading mx-auto">
+          <div class="mx-auto max-w-reading">
             <h2 id="acknowledgment-title" class="section-title">Acknowledgments</h2>
             <p class="small">
               We thank Amin Mirzaee, Maxwell Jones, and Nupur Kumari for their helpful comments and
@@ -451,16 +451,16 @@
       <!-- ===== BIBTEX ===== -->
       <section id="citation" aria-labelledby="citation-title">
         <div class="container">
-          <div class="max-w-reading mx-auto">
-            <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
-              <h2 id="citation-title" class="section-title mb-0">BibTeX</h2>
+          <div class="mx-auto max-w-reading">
+            <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
+              <h2 id="citation-title" class="mb-0 section-title">BibTeX</h2>
               <button class="btn btn-square btn-tactile-outline" id="copy-btn" aria-live="polite">
-                <i class="bi bi-clipboard-fill me-1" aria-hidden="true"></i> Copy
+                <i class="me-1 bi bi-clipboard-fill" aria-hidden="true"></i> Copy
               </button>
             </div>
-            <div class="rounded bg-body-bright border border-muted p-3">
+            <div class="border border-muted p-3 bg-body-bright rounded">
               <div class="font-monospace small">
-                <pre class="whitespace-pre-wrap mb-0" id="bibtex-content">
+                <pre class="mb-0 whitespace-pre-wrap" id="bibtex-content">
 @inproceedings{gao2026text2tactilegraphics,
   title     = {Text-based Tactile Graphics Generation for the Visually Impaired},
   author    = {Gao, Ruihan and Shin, Joonghyuk and Pun, Ava and Park, Jaesik and Yuan, Wenzhen and Zhu, Jun-Yan},
