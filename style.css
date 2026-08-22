@@ -106,6 +106,7 @@ html {
 }
 
 body {
+  -webkit-font-smoothing: antialiased; /* makes text less chunky on MacOS */
   font-optical-sizing: auto;
   overflow-wrap: break-word;
 }
